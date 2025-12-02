@@ -98,6 +98,7 @@ const Help = () => {
                 className="text-primary hover:text-primary-dark transition-smooth"
               >
                 +91 98765 43210
+                <li>+91 99748 52378</li>
               </a>
             </Card>
 

@@ -26,23 +26,46 @@ import mandap1 from "@/assets/mandap-1.jpg";
 import mandap2 from "@/assets/mandap-2.jpg";
 
 const Index = () => {
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "",
     service: "",
+    kw: "",
+    budget: "",
+    eventType: "",
+    city: "",
+    eventDate: "",
     message: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     toast.success("Thank you! We'll call you back within 30 minutes.", {
       description: "Our team is reviewing your request.",
     });
-    setFormData({ name: "", phone: "", service: "", message: "" });
+
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      service: "",
+      kw: "",
+      budget: "",
+      eventType: "",
+      city: "",
+      eventDate: "",
+      message: "",
+    });
   };
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/919876543210?text=Hi, I'm interested in your services", "_blank");
+    window.open(
+      "https://wa.me/919876543210?text=Hi, I'm interested in your services",
+      "_blank"
+    );
   };
 
   return (
@@ -68,7 +91,8 @@ const Index = () => {
             Shree Enterprise
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-4 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-300">
-            Solar Energy Solutions & Premium Mandap Decorations
+            Reliable Solar Installations & Premium Mandap Decorations
+
           </p>
           <p className="text-lg text-primary-foreground/80 mb-10 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-7 duration-700 delay-500">
             Professional service you can trust – from sustainable energy to unforgettable celebrations
@@ -343,10 +367,10 @@ const Index = () => {
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="text-primary font-semibold">RK</span>
+                  <span className="text-primary font-semibold">JP</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">Rajesh Kumar</p>
+                  <p className="font-semibold text-foreground">Jethabhai Pithiya</p>
                   <p className="text-sm text-muted-foreground">Nagichana</p>
                 </div>
               </div>
@@ -363,11 +387,11 @@ const Index = () => {
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
-                  <span className="text-accent font-semibold">PM</span>
+                  <span className="text-accent font-semibold">NP</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">Priya Mehta</p>
-                  <p className="text-sm text-muted-foreground">Junagadh</p>
+                  <p className="font-semibold text-foreground">Naranbhai Pithiya</p>
+                  <p className="text-sm text-muted-foreground">Nagichana</p>
                 </div>
               </div>
             </Card>
@@ -383,11 +407,11 @@ const Index = () => {
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="text-primary font-semibold">AP</span>
+                  <span className="text-primary font-semibold">DN</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">Amit Patel</p>
-                  <p className="text-sm text-muted-foreground">Talala</p>
+                  <p className="font-semibold text-foreground">Dineshbhai Nandha</p>
+                  <p className="text-sm text-muted-foreground">Nagichana</p>
                 </div>
               </div>
             </Card>
@@ -395,154 +419,220 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section id="contact" className="py-20 bg-gradient-hero">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
-                Get Started Today
-              </h2>
-              <p className="text-xl text-primary-foreground/90">
-                Fill the form below and we'll call you back in 30 minutes
-              </p>
+{/* Contact CTA */}
+<section id="contact" className="py-20 bg-gradient-hero">
+  <div className="container mx-auto px-4">
+    <div className="max-w-3xl mx-auto">
+      <div className="text-center mb-10">
+        <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
+          Get Started Today
+        </h2>
+        <p className="text-xl text-primary-foreground/90">
+          Fill the form below and we'll call you back in 30 minutes
+        </p>
+      </div>
+
+      <Card className="p-8 shadow-premium">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name + Phone */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Your Name *
+              </label>
+              <Input
+                required
+                value={formData.name || ""}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Enter your name"
+                className="border-border"
+              />
             </div>
-
-            <Card className="p-8 shadow-premium">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Your Name *
-                    </label>
-                    <Input
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Enter your name"
-                      className="border-border"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Phone Number *
-                    </label>
-                    <Input
-                      required
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="Enter your phone"
-                      className="border-border"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Select Service *
-                  </label>
-                  <select
-                    required
-                    value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
-                  >
-                    <option value="">Choose a service</option>
-                    <option value="Solar Services">Solar Energy Solutions</option>
-                    <option value="Mandap Decoration">Mandap Decoration</option>
-                    <option value="Both">Both Services</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Message</label>
-                  <Textarea
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us about your requirements..."
-                    rows={4}
-                    className="border-border"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary-dark transition-smooth text-lg py-6"
-                  size="lg"
-                >
-                  <Phone className="mr-2 h-5 w-5" />
-                  Get Callback in 30 Minutes 🚀
-                </Button>
-              </form>
-
-              <div className="mt-6 pt-6 border-t border-border">
-                <Button
-                  onClick={handleWhatsApp}
-                  variant="outline"
-                  className="w-full border-accent text-accent hover:bg-accent/10 transition-smooth"
-                  size="lg"
-                >
-                  <Phone className="mr-2 h-5 w-5" />
-                  WhatsApp Quick Contact
-                </Button>
-              </div>
-            </Card>
-
-            <div className="mt-8 text-center space-y-2 text-primary-foreground/90">
-              <div className="flex items-center justify-center gap-2">
-                <MapPin className="w-5 h-5" />
-                <span>Nagichana, Talala, Junagadh, Gujarat</span>
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <Phone className="w-5 h-5" />
-                <span>+91 98765 43210</span>
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <Mail className="w-5 h-5" />
-                <span>info@shreeenterprise.com</span>
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Phone Number *
+              </label>
+              <Input
+                required
+                type="tel"
+                value={formData.phone || ""}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="Enter your phone"
+                className="border-border"
+              />
             </div>
           </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Email (optional)
+            </label>
+            <Input
+              type="email"
+              value={formData.email || ""}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="your.email@example.com"
+              className="border-border"
+            />
+          </div>
+
+          {/* Service Selection */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Select Service *
+            </label>
+            <select
+              required
+              value={formData.service || ""}
+              onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+              className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+            >
+              <option value="">Choose a service</option>
+              <option value="Solar">Solar Energy Solutions</option>
+              <option value="Mandap">Mandap Decoration</option>
+              <option value="Both">Both Services</option>
+            </select>
+          </div>
+
+          {/* Conditional: Solar fields */}
+          {(formData.service === "Solar" || formData.service === "Both") && (
+            <div className="space-y-4 animate-in fade-in">
+              <select
+                value={formData.kw || ""}
+                onChange={(e) => setFormData({ ...formData, kw: e.target.value })}
+                className="w-full px-3 py-2 rounded-md border border-border bg-background"
+              >
+                <option value="">Select Solar Capacity (kW)</option>
+                <option value="2.5 kW">2.5 kW</option>
+                <option value="3 kW">3 kW</option>
+                <option value="5 kW">5 kW</option>
+              </select>
+
+              <select
+                value={formData.budget || ""}
+                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                className="w-full px-3 py-2 rounded-md border border-border bg-background"
+              >
+                <option value="">Solar Budget Range</option>
+                <option>₹50,000 – ₹80,000</option>
+                <option>₹80,000 – ₹1,20,000</option>
+                <option>₹1,20,000 – ₹2,00,000</option>
+                <option>₹2,00,000+</option>
+              </select>
+            </div>
+          )}
+
+          {/* Conditional: Mandap fields */}
+          {(formData.service === "Mandap" || formData.service === "Both") && (
+            <div className="space-y-4 animate-in fade-in">
+              <select
+                value={formData.eventType || ""}
+                onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
+                className="w-full px-3 py-2 rounded-md border border-border bg-background"
+              >
+                <option value="">Event Type</option>
+                <option>Wedding</option>
+                <option>Engagement</option>
+                <option>Garba</option>
+                <option>Reception</option>
+                <option>Birthday</option>
+                <option>Pooja</option>
+                <option>Other</option>
+              </select>
+
+              <select
+                value={formData.budget || ""}
+                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                className="w-full px-3 py-2 rounded-md border border-border bg-background"
+              >
+                <option value="">Mandap Budget Range</option>
+                <option>₹10,000 – ₹30,000</option>
+                <option>₹30,000 – ₹70,000</option>
+                <option>₹1 Lakh – ₹3 Lakh</option>
+                <option>₹3 Lakh – ₹6 Lakh</option>
+                <option>₹6 Lakh+</option>
+              </select>
+            </div>
+          )}
+
+          {/* City + Date */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <Input
+              required
+              placeholder="City / Gaam *"
+              value={formData.city || ""}
+              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+            />
+
+            <Input
+              type="date"
+              value={formData.eventDate || ""}
+              onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+            />
+          </div>
+
+          {/* Message */}
+          <Textarea
+            required
+            placeholder="Describe your requirement..."
+            rows={4}
+            value={formData.message || ""}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          />
+
+          {/* Submit */}
+          <Button
+            type="submit"
+            className="w-full bg-primary text-primary-foreground hover:bg-primary-dark transition-smooth text-lg py-6"
+            size="lg"
+          >
+            <Phone className="mr-2 h-5 w-5" />
+            Get Callback in 30 Minutes 🚀
+          </Button>
+        </form>
+
+        <div className="mt-6 pt-6 border-t border-border">
+          <Button
+            onClick={handleWhatsApp}
+            variant="outline"
+            className="w-full border-accent text-accent hover:bg-accent/10 transition-smooth"
+            size="lg"
+          >
+            <Phone className="mr-2 h-5 w-5" />
+            WhatsApp Quick Contact
+          </Button>
         </div>
-      </section>
+      </Card>
 
-      {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Shree Enterprise</h3>
-              <p className="text-background/80">
-                Your trusted partner for solar energy and premium mandap decorations in Junagadh.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Services</h4>
-              <ul className="space-y-2 text-background/80">
-                <li>Solar Energy Solutions</li>
-                <li>Mandap Decoration</li>
-                <li>Subsidy Support</li>
-                <li>Maintenance & Support</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact</h4>
-              <ul className="space-y-2 text-background/80">
-                <li>Nagichana, Talala</li>
-                <li>Junagadh, Gujarat</li>
-                <li>+91 98765 43210</li>
-                <li>info@shreeenterprise.com</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-background/20 pt-8 text-center text-background/60">
-            <p>&copy; 2024 Shree Enterprise. All rights reserved.</p>
-          </div>
+      <div className="mt-8 text-center space-y-2 text-primary-foreground/90">
+        <div className="flex items-center justify-center gap-2">
+          <MapPin className="w-5 h-5" />
+          <span>📍 Main Chowk, Nagichana, Mangrol, Junagadh – 362240</span>
         </div>
-      </footer>
+        <div className="flex items-center justify-center gap-2">
+          <Phone className="w-5 h-5" />
+          <span>+91 98765 43210</span>
+        </div>
+        <div className="flex items-center justify-center gap-2">
+          <Phone className="w-5 h-5" />
+          <span>+91 99748 52378</span>
+        </div>
+        <div className="flex items-center justify-center gap-2">
+          <Mail className="w-5 h-5" />
+          <span>jagdishbhai.pithiya@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      
     </div>
   );
 };
+
+
 
 export default Index;

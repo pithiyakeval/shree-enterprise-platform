@@ -9,12 +9,14 @@ const Navbar = () => {
   const location = useLocation();
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About Us", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Help", path: "/help" },
-    { name: "Contact Us", path: "/contact" },
-  ];
+  { name: "Home", path: "/" },
+  { name: "About Us", path: "/about" },
+  { name: "Solar Services", path: "/solar-services" },
+  { name: "Mandap Services", path: "/mandap-services" },
+  { name: "Help", path: "/help" },
+  { name: "Contact Us", path: "/contact" },
+];
+
 
   const isActive = (path: string) => location.pathname === path;
 
