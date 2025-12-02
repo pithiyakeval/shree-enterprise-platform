@@ -6,10 +6,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
-import Services from "./pages/Services";
+import Services from "./pages/SolarServices";
 import Help from "./pages/Help";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import SolarPricing from "./pages/SolarPricing";
+import MandapGallery from "./pages/MandapGallery";
+import MandapService from "./pages/MandapService";
+import Footer from "./components/Footer";
+
+
+
 
 const queryClient = new QueryClient();
 
@@ -23,12 +30,16 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/services" element={<Services />} />
+          <Route path="/solar-services" element={<Services />} />
+          <Route path="/mandap-services" element={<MandapService />} />
+
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
+            
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
