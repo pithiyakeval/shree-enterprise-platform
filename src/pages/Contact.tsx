@@ -291,18 +291,28 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-20 bg-secondary text-center">
-        <h2 className="text-4xl font-bold mb-4">Visit Our Office</h2>
-        <p className="text-xl text-muted-foreground mb-6">
-          Main Chowk, Nagichana, Mangrol, Junagadh, Gujarat
-        </p>
+     {/* Map Section */}
+<section className="py-20 bg-secondary text-center">
+  <h2 className="text-4xl font-bold mb-4">Visit Our Office</h2>
+  <p className="text-xl text-muted-foreground mb-6">
+    Main Chowk, Nagichana, Mangrol, Junagadh, Gujarat
+  </p>
 
-        <Card className="max-w-4xl mx-auto p-10 shadow-card">
-          <MapPin className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-          <p className="text-muted-foreground">Nagichana, Junagadh</p>
-        </Card>
-      </section>
+  <Card className="max-w-4xl mx-auto p-10 shadow-card">
+    <MapPin className="w-16 h-16 text-primary mx-auto mb-4" />
+    <p className="text-lg text-foreground font-medium">Nagichana, Junagadh</p>
+
+    {/* Google Map Button */}
+    <a
+      href="https://www.google.com/maps/place/Nagichana,+Gujarat"
+      target="_blank"
+      className="inline-block mt-6 px-6 py-3 rounded-lg bg-primary text-primary-foreground 
+      font-semibold hover:bg-primary-dark transition"
+    >
+      📍 Open in Google Maps
+    </a>
+  </Card>
+</section>
 
     </div>
   );
