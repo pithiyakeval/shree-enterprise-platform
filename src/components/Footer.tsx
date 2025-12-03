@@ -1,58 +1,110 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-background py-12 mt-16">
+    <footer className="bg-gradient-to-b from-[rgba(30,64,175,0.85)] to-[rgba(30,64,175,0.75)] text-primary-foreground pt-10 pb-6 mt-16 shadow-inner">
+
       <div className="container mx-auto px-4">
 
-        {/* TOP GRID */}
-        <div className="grid md:grid-cols-3 gap-10 mb-10">
+        {/* GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-          {/* BRAND */}
+          {/* BRAND (compact) */}
           <div>
-            <h3 className="text-2xl font-bold mb-3">Shree Enterprise</h3>
-            <p className="text-background/80 leading-relaxed">
-              Trusted Solar & Mandap Services in Saurashtra since 2018.
-              Providing honest, affordable and professional solutions for every family.
+            <h3 className="text-xl font-bold mb-2">Shree Enterprise</h3>
+            <p className="text-primary-foreground/80 text-sm leading-relaxed">
+              Trusted Solar & Mandap Services since 2018.
             </p>
           </div>
 
-          {/* QUICK LINKS */}
+          {/* QUICK LINKS (compact + premium) */}
           <div>
-            <h4 className="text-lg font-semibold mb-3">Quick Links</h4>
-            <ul className="space-y-2 text-background/80">
-              <li><Link to="/services" className="hover:underline">Solar Services</Link></li>
-              <li><Link to="/mandap-services" className="hover:underline">Mandap Decoration</Link></li>
-              <li><Link to="/contact" className="hover:underline">Contact Us</Link></li>
-              <li><Link to="/about" className="hover:underline">About Us</Link></li>
+            <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
+            <ul className="space-y-1 text-primary-foreground/80 text-sm">
+
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `hover:text-accent ${
+                      isActive ? "text-accent font-semibold" : ""
+                    }`
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/solar-services"
+                  className={({ isActive }) =>
+                    `hover:text-accent ${
+                      isActive ? "text-accent font-semibold" : ""
+                    }`
+                  }
+                >
+                  Solar Services
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/mandap-services"
+                  className={({ isActive }) =>
+                    `hover:text-accent ${
+                      isActive ? "text-accent font-semibold" : ""
+                    }`
+                  }
+                >
+                  Mandap Decoration
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    `hover:text-accent ${
+                      isActive ? "text-accent font-semibold" : ""
+                    }`
+                  }
+                >
+                  Contact
+                </NavLink>
+              </li>
+
             </ul>
           </div>
 
-          {/* CONTACT INFO */}
+          {/* CONTACT (compact) */}
           <div>
-            <h4 className="text-lg font-semibold mb-3">Contact Info</h4>
-            <ul className="space-y-2 text-background/80">
-              <li>📍 Main Chowk, Nagichana, Mangrol</li>
-              <li>Junagadh, Gujarat  362240</li>
+            <h4 className="text-lg font-semibold mb-2">Contact</h4>
+            <ul className="space-y-1 text-primary-foreground/80 text-sm">
+              <li>📍 Nagichana, Mangrol</li>
+              <li>Junagadh, Gujarat 362240</li>
               <li>📞 99748 52378</li>
               <li>📞 98988 12423</li>
               <li>📧 jagdishbhai.pithiya@gmail.com</li>
-              <li className="mt-2">
+              <li>
                 <a
                   href="https://wa.me/919898812423"
                   target="_blank"
-                  className="underline hover:text-background">
-                  📱 WhatsApp Us
+                  className="hover:text-accent underline"
+                >
+                  WhatsApp Us
                 </a>
               </li>
             </ul>
           </div>
+
         </div>
 
-        {/* COPYRIGHT LINE */}
-        <div className="border-t border-background/20 pt-6 text-center text-background/60 text-sm">
-          © 2025 Shree Enterprise | All Rights Reserved
+        {/* COPYRIGHT */}
+        <div className="border-t border-white/20 pt-4 text-center text-white/80 text-xs">
+          © 2025 Shree Enterprise • All Rights Reserved
         </div>
+
       </div>
     </footer>
   );

@@ -622,6 +622,21 @@ const Index = () => {
           <Mail className="w-5 h-5" />
           <span>jagdishbhai.pithiya@gmail.com</span>
         </div>
+        {/* ⭐ Add Google Map Link Here ⭐ */}
+
+    <section>
+    {/* Google Map Button */}
+    <a
+      href="https://www.google.com/maps/place/Nagichana,+Gujarat"
+      target="_blank"
+      className="inline-block mt-6 px-6 py-3 rounded-lg bg-primary text-primary-foreground 
+      font-semibold hover:bg-primary-dark transition"
+    >
+      📍 Open in Google Maps
+    </a>
+  
+</section>
+ 
       </div>
     </div>
   </div>
