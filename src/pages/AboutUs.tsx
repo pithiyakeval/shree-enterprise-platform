@@ -157,6 +157,29 @@ const AboutUs = () => {
         </div>
       </section>
 
+      {/* CTA Section */}
+<section className="py-20 bg-gradient-hero">
+  <div className="container mx-auto px-4 text-center">
+
+    <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
+      Ready to Get Started?
+    </h2>
+
+    <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+      Contact us for solar installation, mandap decoration, or event planning.
+    </p>
+
+    <a
+      href="/contact"
+      className="inline-block bg-accent text-accent-foreground hover:bg-accent-light transition-smooth px-10 py-4 rounded-xl text-lg font-semibold shadow-premium"
+    >
+      Contact Us Now
+    </a>
+
+  </div>
+</section>
+
+
     </div>
   );
 };

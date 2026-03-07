@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { apiPost } from "@/config/api";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,14 +19,16 @@ import {
 import { toast } from "sonner";
 
 const Contact = () => {
+  const [searchParams] = useSearchParams();
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    service: "",
+    service: searchParams.get("service") || "",
     city: "",
-    eventType: "",
-    kw: "",
+    eventType: searchParams.get("eventType") || "",
+    kw: searchParams.get("kw") || "",
     budget: "",
     eventDate: "",
     message: "",
@@ -34,13 +38,37 @@ const Contact = () => {
     setFormData({ ...formData, [field]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const payload = {
+    name: formData.name,
+    phone: formData.phone,
+    email: formData.email || null,
+    city: formData.city,
+    message: formData.message,
+    service: formData.service,
+
+    // Solar
+    kw: formData.kw || null,
+    budget: formData.budget || null,
+
+    // Mandap
+    eventType: formData.eventType || null,
+    eventDate: formData.eventDate || null,
+
+    // Source
+    where_from: "contact",
+  };
+
+  try {
+    await apiPost("/api/lead/submit", payload);
 
     toast.success("Message sent successfully!", {
       description: "We'll contact you within 30 minutes.",
     });
 
+    // Reset form
     setFormData({
       name: "",
       phone: "",
@@ -53,7 +81,13 @@ const Contact = () => {
       eventDate: "",
       message: "",
     });
-  };
+  } catch (error) {
+    console.error(error);
+    toast.error("Server not reachable. Please try again later.");
+  }
+};
+
+
 
   return (
     <div className="min-h-screen bg-background">

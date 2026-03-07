@@ -114,59 +114,72 @@ const MandapService = () => {
 
       {/* PACKAGES SECTION */}
       <section className="py-20">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-4xl font-bold text-foreground mb-12">Decoration Packages</h2>
+  <div className="container mx-auto px-4 max-w-6xl">
+    <h2 className="text-4xl font-bold text-foreground mb-12">Decoration Packages</h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+    <div className="grid md:grid-cols-3 gap-8">
 
-            <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
-              <h3 className="text-3xl font-bold text-primary mb-3">Basic Package</h3>
-              <p className="text-muted-foreground mb-4">Perfect for small events & pujas.</p>
+      {/* Basic Package */}
+      <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
+        <h3 className="text-3xl font-bold text-primary mb-3">Basic Package</h3>
+        <p className="text-muted-foreground mb-4">Perfect for small events & pujas.</p>
 
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li className="flex gap-2"><Check className="text-primary" /> Simple Mandap Setup</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Basic Lighting</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Entry Gate</li>
-              </ul>
+        <ul className="space-y-2 mb-6 text-muted-foreground">
+          <li className="flex gap-2"><Check className="text-primary" /> Simple Mandap Setup</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Basic Lighting</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Entry Gate</li>
+        </ul>
 
-              <p className="text-2xl font-bold mb-2">₹15,000 – ₹30,000</p>
-              <Button className="w-full bg-primary text-primary-foreground">Get Quote</Button>
-            </Card>
+        <p className="text-2xl font-bold mb-2">₹15,000 – ₹30,000</p>
 
-            <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
-              <h3 className="text-3xl font-bold text-primary mb-3">Standard Package</h3>
-              <p className="text-muted-foreground mb-4">Best for engagements & birthdays.</p>
+        <Button asChild className="w-full bg-primary text-primary-foreground">
+          <Link to="/contact?service=Mandap&eventType=Pooja%20or%20Small%20Event">Get Quote</Link>
+        </Button>
+      </Card>
 
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li className="flex gap-2"><Check className="text-primary" /> Decorated Mandap</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Stage + Backdrop</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Lighting Setup</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Balloon/Floral Add-ons</li>
-              </ul>
+      {/* Standard Package */}
+      <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
+        <h3 className="text-3xl font-bold text-primary mb-3">Standard Package</h3>
+        <p className="text-muted-foreground mb-4">Best for engagements & birthdays.</p>
 
-              <p className="text-2xl font-bold mb-2">₹40,000 – ₹50,000</p>
-              <Button className="w-full bg-primary text-primary-foreground">Get Quote</Button>
-            </Card>
+        <ul className="space-y-2 mb-6 text-muted-foreground">
+          <li className="flex gap-2"><Check className="text-primary" /> Decorated Mandap</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Stage + Backdrop</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Lighting Setup</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Balloon/Floral Add-ons</li>
+        </ul>
 
-            <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
-              <h3 className="text-3xl font-bold text-primary mb-3">Premium Wedding Package</h3>
-              <p className="text-muted-foreground mb-4">Ideal for weddings & grand events.</p>
+        <p className="text-2xl font-bold mb-2">₹40,000 – ₹50,000</p>
 
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li className="flex gap-2"><Check className="text-primary" /> Full Wedding Mandap</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Premium Lighting</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Entry Gate + Walkway</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Custom Theme Setup</li>
-                <li className="flex gap-2"><Check className="text-primary" /> Photographer Backdrop</li>
-              </ul>
+        <Button asChild className="w-full bg-primary text-primary-foreground">
+          <Link to="/contact?service=Mandap&eventType=Engagement%20or%20Birthday">Get Quote</Link>
+        </Button>
+      </Card>
 
-              <p className="text-2xl font-bold mb-2">₹60,000 – ₹80,000</p>
-              <Button className="w-full bg-primary text-primary-foreground">Get Quote</Button>
-            </Card>
+      {/* Premium Package */}
+      <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
+        <h3 className="text-3xl font-bold text-primary mb-3">Premium Wedding Package</h3>
+        <p className="text-muted-foreground mb-4">Ideal for weddings & grand events.</p>
 
-          </div>
-        </div>
-      </section>
+        <ul className="space-y-2 mb-6 text-muted-foreground">
+          <li className="flex gap-2"><Check className="text-primary" /> Full Wedding Mandap</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Premium Lighting</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Entry Gate + Walkway</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Custom Theme Setup</li>
+          <li className="flex gap-2"><Check className="text-primary" /> Photographer Backdrop</li>
+        </ul>
+
+        <p className="text-2xl font-bold mb-2">₹60,000 – ₹80,000</p>
+
+        <Button asChild className="w-full bg-primary text-primary-foreground">
+          <Link to="/contact?service=Mandap&eventType=Wedding">Get Quote</Link>
+        </Button>
+      </Card>
+
+    </div>
+  </div>
+</section>
+
 
       {/* THEMES */}
       <section className="py-20 bg-secondary">

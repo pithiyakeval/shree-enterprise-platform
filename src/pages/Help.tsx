@@ -208,7 +208,15 @@ const Help = () => {
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
             >
-              <Link to="/contact">Contact Support Team</Link>
+              <Button
+  asChild
+  size="lg"
+  className="bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
+>
+  <Link to="/contact?service=Support">Contact Support Team</Link>
+</Button>
+
+   
             </Button>
           </Card>
         </div>

@@ -1,0 +1,132 @@
+/* Floating Button */
+.chatbot-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: #facc15; /* Yellow */
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatbot-fab img {
+  width: 36px;
+  height: auto;
+}
+
+/* Chat Window */
+.chatbot-window {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  width: 340px;
+  height: 440px;
+  background: #ffffff;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 45px rgba(0,0,0,0.35);
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Header */
+.chatbot-header {
+  background: #1e3a8a; /* Dark blue */
+  color: #fff;
+  padding: 12px 14px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Messages */
+.chatbot-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  background: #f8fafc;
+  font-size: 14px;
+}
+
+.msg {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 85%;
+}
+
+.msg.user {
+  background: #e5e7eb;
+  align-self: flex-end;
+}
+
+.msg.bot {
+  background: #eff6ff;
+  border-left: 4px solid #1e3a8a;
+}
+
+/* Input */
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #e5e7eb;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.chatbot-input button {
+  background: #facc15;
+  border: none;
+  padding: 0 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chatbot-input button {
+  background-color: #facc15;
+
+}
+
+
+.chatbot-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #facc15; /* yellow */
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatbot-fab img {
+  width: 36px;
+  height: 36px;
+}

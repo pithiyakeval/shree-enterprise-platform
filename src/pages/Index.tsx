@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useNavigate } from "react-router-dom";
+import { apiPost } from "@/config/api";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Sun,
@@ -26,6 +29,7 @@ import mandap1 from "@/assets/mandap-1.jpg";
 import mandap2 from "@/assets/mandap-2.jpg";
 
 const Index = () => {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,13 +44,32 @@ const Index = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // ✅ FIXED handlesubmit – Now Typescript safe
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const payload = {
+    name: formData.name,
+    phone: formData.phone,
+    email: formData.email || null,
+    city: formData.city,
+    message: formData.message,
+    service: formData.service,
+    kw: formData.kw || null,
+    budget: formData.budget || null,
+    eventType: formData.eventType || null,
+    eventDate: formData.eventDate || null,
+    where_from: "home",
+  };
+
+  try {
+    await apiPost("/api/lead/submit", payload);
 
     toast.success("Thank you! We'll call you back within 30 minutes.", {
       description: "Our team is reviewing your request.",
     });
 
+    // reset form
     setFormData({
       name: "",
       phone: "",
@@ -59,7 +82,14 @@ const Index = () => {
       eventDate: "",
       message: "",
     });
-  };
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Server not reachable. Please try again later.");
+  }
+};
+
+
 
   const handleWhatsApp = () => {
     window.open(
@@ -173,14 +203,12 @@ const Index = () => {
                   </li>
                 </ul>
                 <Button
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary-dark transition-smooth"
-                  onClick={() => {
-                    setFormData({ ...formData, service: "Solar Services" });
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  Get Solar Pricing
-                </Button>
+  className="w-full bg-primary text-primary-foreground hover:bg-primary-dark transition-smooth"
+  onClick={() => navigate("/solar-services")}
+>
+  Get Solar Pricing
+</Button>
+
               </CardContent>
             </Card>
 
@@ -210,14 +238,12 @@ const Index = () => {
                   </li>
                 </ul>
                 <Button
-                  className="w-full bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
-                  onClick={() => {
-                    setFormData({ ...formData, service: "Mandap Decoration" });
-                    document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  See Decoration Themes
-                </Button>
+  className="w-full bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
+  onClick={() => navigate("/mandap-services")}
+>
+  See Decoration Themes
+</Button>
+
               </CardContent>
             </Card>
           </div>

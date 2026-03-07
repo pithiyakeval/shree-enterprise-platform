@@ -1,113 +1,125 @@
 import { NavLink } from "react-router-dom";
+import { MapPin, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-[rgba(30,64,175,0.85)] to-[rgba(30,64,175,0.75)] text-primary-foreground pt-10 pb-6 mt-16 shadow-inner">
+    <footer className="bg-gradient-to-b from-blue-900 to-blue-950 text-white mt-20">
+      <div className="container mx-auto px-6 py-14">
 
-      <div className="container mx-auto px-4">
+        {/* MAIN GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
-        {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
-          {/* BRAND (compact) */}
+          {/* BRAND */}
           <div>
-            <h3 className="text-xl font-bold mb-2">Shree Enterprise</h3>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              Trusted Solar & Mandap Services since 2018.
+            <h3 className="text-2xl font-bold mb-3 tracking-tight">
+              Shree Enterprise
+            </h3>
+            <p className="text-sm text-white/80 leading-relaxed max-w-sm">
+              Government-approved vendor delivering reliable solar solutions and
+              premium mandap decorations across Junagadh & nearby regions.
             </p>
           </div>
 
-          {/* QUICK LINKS (compact + premium) */}
+          {/* QUICK LINKS */}
           <div>
-            <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
-            <ul className="space-y-1 text-primary-foreground/80 text-sm">
-
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    `hover:text-accent ${
-                      isActive ? "text-accent font-semibold" : ""
-                    }`
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  to="/solar-services"
-                  className={({ isActive }) =>
-                    `hover:text-accent ${
-                      isActive ? "text-accent font-semibold" : ""
-                    }`
-                  }
-                >
-                  Solar Services
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  to="/mandap-services"
-                  className={({ isActive }) =>
-                    `hover:text-accent ${
-                      isActive ? "text-accent font-semibold" : ""
-                    }`
-                  }
-                >
-                  Mandap Decoration
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    `hover:text-accent ${
-                      isActive ? "text-accent font-semibold" : ""
-                    }`
-                  }
-                >
-                  Contact
-                </NavLink>
-              </li>
-
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/about" },
+                { name: "Solar Services", path: "/solar-services" },
+                { name: "Mandap Services", path: "/mandap-services" },
+                { name: "Help", path: "/help" },
+                { name: "Contact Us", path: "/contact" },
+              ].map((link) => (
+                <li key={link.path}>
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `transition hover:text-yellow-400 ${
+                        isActive
+                          ? "text-yellow-400 font-medium"
+                          : "text-white/80"
+                      }`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* CONTACT (compact) */}
+          {/* CONTACT */}
           <div>
-            <h4 className="text-lg font-semibold mb-2">Contact</h4>
-            <ul className="space-y-1 text-primary-foreground/80 text-sm">
-              <li>📍 Nagichana, Mangrol</li>
-              <li>Junagadh, Gujarat 362240</li>
-              <li>📞 99748 52378</li>
-              <li>📞 98988 12423</li>
-              <li>📧 jagdishbhai.pithiya@gmail.com</li>
+            <h4 className="text-lg font-semibold mb-4">Contact</h4>
+
+            <ul className="space-y-2 text-sm text-white/80">
+              <li>📍 Main Chowk, Nagichana</li>
+              <li>Mangrol, Junagadh – 362240</li>
+
               <li>
+                📞{" "}
+                <a href="tel:+919974852378" className="hover:text-yellow-400">
+                  +91 99748 52378
+                </a>
+              </li>
+
+              <li>
+                📞{" "}
+                <a href="tel:+919898812423" className="hover:text-yellow-400">
+                  +91 98988 12423
+                </a>
+              </li>
+
+              <li>
+                📧{" "}
                 <a
-                  href="https://wa.me/919898812423"
-                  target="_blank"
-                  className="hover:text-accent underline"
+                  href="mailto:jagdishbhai.pithiya@gmail.com"
+                  className="hover:text-yellow-400 break-all"
                 >
-                  WhatsApp Us
+                  jagdishbhai.pithiya@gmail.com
                 </a>
               </li>
             </ul>
+
+            {/* SOCIAL ICONS */}
+            <div className="mt-6 flex items-center gap-4">
+              {/* WhatsApp */}
+              <a
+                href="https://wa.me/919898812423"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="WhatsApp"
+                className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center
+                           hover:bg-green-500 hover:text-white transition"
+              >
+                <MessageCircle className="w-5 h-5" />
+              </a>
+
+              {/* Google Maps */}
+              <a
+                href="https://www.google.com/maps/place/Nagichana,+Gujarat"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Google Maps"
+                className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center
+                           hover:bg-yellow-400 hover:text-black transition"
+              >
+                <MapPin className="w-5 h-5" />
+              </a>
+            </div>
           </div>
-
         </div>
 
-        {/* COPYRIGHT */}
-        <div className="border-t border-white/20 pt-4 text-center text-white/80 text-xs">
-          © 2025 Shree Enterprise • All Rights Reserved
+        {/* DIVIDER */}
+        <div className="border-t border-white/15 mt-12 pt-6 text-center text-xs text-white/60">
+          © {new Date().getFullYear()} Shree Enterprise. All Rights Reserved.
         </div>
-
       </div>
     </footer>
   );
 };
 
 export default Footer;
+

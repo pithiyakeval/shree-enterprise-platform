@@ -14,11 +14,22 @@ import SolarPricing from "./pages/SolarPricing";
 import MandapGallery from "./pages/MandapGallery";
 import MandapService from "./pages/MandapService";
 import Footer from "./components/Footer";
+// Admin Pages
+import AdminLogin from "./admin/AdminLogin";
+import Dashboard from "./admin/Dashboard";
+import LeadsPage from "./admin/LeadsPage";
+import ProtectedRoute from "./components/ProtectedRoutes";
+import SolarPage from "./admin/SolarPage";
+import MandapPage from "./admin/MandapPage";
+import  ChatbotWidget from "./components/Chatbot/ChatbotWidget";
+import SettingsPage from "./admin/SettingsPage";
 
 
 
+/// ai chatbot
 
 const queryClient = new QueryClient();
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -36,10 +47,33 @@ const App = () => (
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
             
+          {/* ADMIN PANEL */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={
+           <ProtectedRoute>
+                 <Dashboard />
+          </ProtectedRoute>
+          } />
+        <Route path="/admin/leads" element={
+        <ProtectedRoute>
+           <LeadsPage />
+        </ProtectedRoute>
+         } />
+
+         <Route path="/admin/solar" element={<SolarPage />} />
+         <Route path="/admin/mandap" element={<MandapPage />} />
+         <Route path="/admin/settings" element={<SettingsPage />} />
+
+         {/* ai route of chatbot which is ai/chat*/}
+         
+         
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
+
+          
         </Routes>
         <Footer/>
+        <ChatbotWidget/>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

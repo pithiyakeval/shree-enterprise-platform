@@ -146,9 +146,13 @@ const SolarServices = () => {
           <li className="flex gap-2"><Check className="text-primary" /> Free documentation help</li>
         </ul>
 
-        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary-dark">
-          Get Quote
-        </Button>
+        <Button
+  asChild
+  className="w-full bg-primary text-primary-foreground hover:bg-primary-dark"
+>
+  <Link to="/contact?service=Solar&kw=2.5 kW">Get Quote</Link>
+</Button>
+
       </Card>
 
       {/* 3 kW */}
@@ -170,6 +174,7 @@ const SolarServices = () => {
         <Button className="w-full bg-primary text-primary-foreground hover:bg-primary-dark">
           Get Quote
         </Button>
+        
       </Card>
 
       {/* 5 kW */}
