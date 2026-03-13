@@ -13,7 +13,7 @@ const SolarPage = () => {
   const loadData = async () => {
     setLoading(true);
 
-    const res: any = await api.get("/solar");
+    const res: any = await api.get("/admin/solar");
 
     const formatted = res.data.map((row: any) => ({
       id: row.base.id,

@@ -13,7 +13,7 @@ const MandapPage = () => {
   const loadData = async () => {
     setLoading(true);
 
-    const res: any = await api.get("/mandap");
+    const res: any = await api.get("/admin/mandap");
 
     const formatted = res.data.map((row: any) => ({
       id: row.base.id,

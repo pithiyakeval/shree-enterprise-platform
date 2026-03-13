@@ -73,14 +73,14 @@ const LeadsTable = ({ leads }: { leads: Lead[] }) => {
   /* ---------------- Actions ---------------- */
 
   const markDone = async (id: number) => {
-    await api.post(`/lead/${id}/done`);
+    await api.post(`/admin/lead/${id}/done`);
     setData((d) => d.map((x) => (x.id === id ? { ...x, status: "Done" } : x)));
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
 
-    await api.delete(`/lead/${deleteId}`);
+    await api.delete(`/admin/lead/${deleteId}`);
 
     setData((d) => d.filter((x) => x.id !== deleteId));
     setDeleteId(null);

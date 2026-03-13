@@ -23,6 +23,8 @@ import SolarPage from "./admin/SolarPage";
 import MandapPage from "./admin/MandapPage";
 import  ChatbotWidget from "./components/Chatbot/ChatbotWidget";
 import SettingsPage from "./admin/SettingsPage";
+import SolarImages from "./pages/SolarImage";
+import MandapImages from "./pages/MandapImage";
 
 
 
@@ -43,7 +45,8 @@ const App = () => (
           <Route path="/about" element={<AboutUs />} />
           <Route path="/solar-services" element={<Services />} />
           <Route path="/mandap-services" element={<MandapService />} />
-
+          <Route path="/solar-projects" element={<SolarImages />} />
+          <Route path="/mandap-projects" element={<MandapImages />} />
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
             

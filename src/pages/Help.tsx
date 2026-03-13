@@ -1,228 +1,441 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card"
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, MessageCircle, HelpCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+Accordion,
+AccordionContent,
+AccordionItem,
+AccordionTrigger
+} from "@/components/ui/accordion"
+
+import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import helpBg from "@/assets/hero-bg.jpg"
+import { Helmet } from "react-helmet-async"
+import {
+Phone,
+Mail,
+MessageCircle,
+HelpCircle
+} from "lucide-react"
+
+import { Link } from "react-router-dom"
 
 const Help = () => {
-  const solarFaqs = [
-    {
-      question: "How much does a solar installation cost?",
-      answer:
-        "Solar installation costs vary based on system size (2.5kW to 5kW) and your specific requirements. After government subsidies, a typical 3kW system costs approximately ₹1,50,000 - ₹2,00,000. We provide free site surveys and detailed quotes tailored to your needs.",
-    },
-    {
-      question: "What government subsidies are available?",
-      answer:
-        "The Government of India provides subsidies up to 40% for residential solar installations under 3kW and 20% for systems between 3-10kW. We handle all paperwork and ensure you receive the maximum eligible subsidy.",
-    },
-    {
-      question: "How long does installation take?",
-      answer:
-        "Typical residential solar installations take 2-3 days to complete once all approvals are in place. The entire process from site survey to grid connection usually takes 3-4 weeks, including subsidy processing.",
-    },
-    {
-      question: "What maintenance is required?",
-      answer:
-        "Solar panels require minimal maintenance - primarily cleaning 3-4 times per year and annual professional inspection. We offer maintenance packages and provide free maintenance for the first year with installation.",
-    },
-    {
-      question: "What warranty do you provide?",
-      answer:
-        "Solar panels come with 25-year manufacturer warranty, inverters have 5-10 year warranty, and we provide 5-year workmanship warranty on installation. We also offer extended warranty packages.",
-    },
-  ];
 
-  const mandapFaqs = [
-    {
-      question: "How far in advance should I book?",
-      answer:
-        "We recommend booking at least 2-3 months in advance for weddings and 3-4 weeks for smaller events. This ensures availability and gives us adequate time to plan your perfect setup. However, we do accommodate last-minute bookings when possible.",
-    },
-    {
-      question: "Do you provide custom themes?",
-      answer:
-        "Yes! We specialize in creating custom mandap designs based on your preferences, wedding theme, and cultural requirements. Share your vision with us, and our design team will bring it to life.",
-    },
-    {
-      question: "What's included in the decoration package?",
-      answer:
-        "Our packages include stage construction, fabric draping, floral arrangements, lighting setup, seating arrangement, complete installation, and teardown. We provide all materials and on-site coordination throughout your event.",
-    },
-    {
-      question: "Can I see your previous work?",
-      answer:
-        "Absolutely! We maintain a comprehensive portfolio of our previous projects. Visit our gallery section on the website or contact us to schedule an in-person consultation where we can show you detailed examples.",
-    },
-    {
-      question: "What areas do you serve?",
-      answer:
-        "We primarily serve Junagadh, Talala, Nagichana, and surrounding areas within a 50km radius. For events outside this area, please contact us to discuss arrangements and additional travel charges if applicable.",
-    },
-  ];
+const solarFaqs = [
+{
+question:"How much does a solar installation cost in junagadh?",
+answer:"Solar installation costs vary based on system size (2.5kW to 5kW) and your specific requirements. After government subsidies, a typical 3kW system costs approximately ₹1,50,000 - ₹2,00,000."
+},
+{
+question:"What government subsidies are available in Gujarat?",
+answer:"Government of India provides subsidies up to 40% for residential solar installations under 3kW and 20% for systems between 3-10kW."
+},
+{
+question:"How long does installation take ?",
+answer:"Typical installations take 2-3 days once approvals are ready. The full process including approvals usually takes 3-4 weeks."
+},
+{
+question:"What maintenance is required?",
+answer:"Solar panels require minimal maintenance — mainly cleaning 3-4 times per year."
+},
+{
+question:"What warranty do you provide?",
+answer:"Panels have 25-year warranty, inverters 5–10 years, and we provide workmanship warranty."
+}
+]
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="bg-gradient-hero py-20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="w-20 h-20 bg-primary-foreground/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <HelpCircle className="w-10 h-10 text-primary-foreground" />
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
-            How Can We Help?
-          </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-            Find answers to common questions or reach out to our support team
-          </p>
-        </div>
-      </section>
+const mandapFaqs = [
+{
+question:"How far in advance should I book?",
+answer:"We recommend booking 2-3 months before weddings and 3-4 weeks before small events."
+},
+{
+question:"Do you provide custom themes?",
+answer:"Yes! Our team designs decorations based on your theme, colors and event style."
+},
+{
+question:"What’s included in decoration packages?",
+answer:"Stage setup, mandap, lighting, fabrics, floral arrangements, and event coordination."
+},
+{
+question:"Can I see your previous work?",
+answer:"Yes! You can visit our gallery section or contact us for our full portfolio."
+},
+{
+question:"What areas around saurashtra do you serve?",
+answer:"We serve Junagadh, Talala, Mangrol, Nagichana and surrounding villages."
+}
+]
 
-      {/* Quick Contact */}
-      <section className="py-12 bg-secondary">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="p-6 text-center shadow-card hover:shadow-hover transition-smooth border-border/50">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Call Us</h3>
-              <p className="text-sm text-muted-foreground mb-3">Mon-Sat, 9 AM - 7 PM</p>
-              <a
-                href="tel:+919876543210"
-                className="text-primary hover:text-primary-dark transition-smooth"
-              >
-                +91 98765 43210
-                <li>+91 99748 52378</li>
-              </a>
-            </Card>
+return (
+    <>
+    <Helmet>
 
-            <Card className="p-6 text-center shadow-card hover:shadow-hover transition-smooth border-border/50">
-              <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">WhatsApp</h3>
-              <p className="text-sm text-muted-foreground mb-3">Quick responses</p>
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:text-accent-light transition-smooth"
-              >
-                Chat Now
-              </a>
-            </Card>
+        <script type="application/ld+json">
+{`
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
 
-            <Card className="p-6 text-center shadow-card hover:shadow-hover transition-smooth border-border/50">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Email Us</h3>
-              <p className="text-sm text-muted-foreground mb-3">24-hour response</p>
-              <a
-                href="mailto:info@shreeenterprise.com"
-                className="text-primary hover:text-primary-dark transition-smooth"
-              >
-                Send Email
-              </a>
-            </Card>
-          </div>
-        </div>
-      </section>
+{
+"@type": "Question",
+"name": "How much does solar installation cost in Junagadh?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Solar installation costs depend on system size. After subsidy, a 3kW system typically costs around ₹1.5–2 lakh."
+}
+},
 
-      {/* Solar FAQs */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-foreground mb-4 text-center">
-              Solar Energy FAQs
-            </h2>
-            <p className="text-muted-foreground text-center mb-12">
-              Common questions about solar installations
-            </p>
-            <Accordion type="single" collapsible className="space-y-4">
-              {solarFaqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`solar-${index}`}
-                  className="border border-border rounded-lg px-6 shadow-sm"
-                >
-                  <AccordionTrigger className="text-left hover:no-underline py-4">
-                    <span className="font-semibold text-foreground">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-4">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
+{
+"@type": "Question",
+"name": "What government subsidy is available for solar panels?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Government provides up to 40% subsidy for residential solar systems under 3kW under PM Surya Ghar Yojana."
+}
+},
 
-      {/* Mandap FAQs */}
-      <section className="py-20 bg-secondary">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-foreground mb-4 text-center">
-              Mandap Decoration FAQs
-            </h2>
-            <p className="text-muted-foreground text-center mb-12">
-              Everything you need to know about our decoration services
-            </p>
-            <Accordion type="single" collapsible className="space-y-4">
-              {mandapFaqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`mandap-${index}`}
-                  className="border border-border rounded-lg px-6 shadow-sm bg-background"
-                >
-                  <AccordionTrigger className="text-left hover:no-underline py-4">
-                    <span className="font-semibold text-foreground">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-4">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
+{
+"@type": "Question",
+"name": "How long does solar installation take?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Installation usually takes 2–3 days once approvals are completed."
+}
+},
 
-      {/* Still Need Help CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <Card className="max-w-3xl mx-auto p-12 text-center shadow-premium border-border/50">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Still Have Questions?</h2>
-            <p className="text-muted-foreground mb-8">
-              Can't find what you're looking for? Our team is here to help with personalized support
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
-            >
-              <Button
-  asChild
-  size="lg"
-  className="bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
+{
+"@type": "Question",
+"name": "How early should I book mandap decoration?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "We recommend booking 2–3 months before weddings and 3–4 weeks before small events."
+}
+},
+
+{
+"@type": "Question",
+"name": "Which areas do you serve?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "We provide solar installation and mandap decoration services across Junagadh, Mangrol, Talala and nearby villages."
+}
+}
+
+]
+}
+`}
+</script>
+
+<title>
+Help & FAQs | Solar Panel Installation & Mandap Decoration Junagadh
+</title>
+
+<meta
+name="description"
+content="Get answers to common questions about solar panel installation, government subsidy, and wedding mandap decoration services in Junagadh, Mangrol and nearby villages."
+/>
+
+<meta
+name="keywords"
+content="solar panel FAQ Gujarat, solar subsidy Junagadh, solar installation cost Gujarat, mandap decoration FAQ, event decoration Junagadh"
+/>
+
+<link
+rel="canonical"
+href="https://yourdomain.com/help"
+/>
+
+{/* OpenGraph */}
+
+<meta
+property="og:title"
+content="Solar & Mandap Service FAQs | Shree Enterprise"
+/>
+
+<meta
+property="og:description"
+content="Find answers about solar installation, government subsidy and mandap decoration services across Junagadh district."
+/>
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yourdomain.com/help" />
+<meta property="og:image" content="/preview.jpg" />
+
+{/* Twitter */}
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta
+name="twitter:title"
+content="Solar Panel & Mandap Decoration Help Center"
+/>
+
+<meta
+name="twitter:description"
+content="Help center for solar installation, government subsidy and mandap decoration services."
+/>
+
+<meta name="twitter:image" content="/preview.jpg" />
+
+{/* GEO SEO */}
+
+<meta name="geo.region" content="IN-GJ" />
+<meta name="geo.placename" content="Junagadh" />
+<meta name="geo.position" content="21.0245;70.2212" />
+
+</Helmet>
+
+<div className="relative min-h-screen overflow-hidden">
+
+{/* PARALLAX BACKGROUND */}
+
+<div
+className="fixed inset-0 -z-20 bg-cover bg-center"
+style={{backgroundImage:`url(${helpBg})`}}
+/>
+
+{/* OVERLAY */}
+
+<div className="fixed inset-0 -z-10 bg-gradient-to-b from-white/85 via-white/80 to-indigo-50/90 backdrop-blur-[1px]" />
+
+
+{/* HERO */}
+
+<section className="relative py-28">
+
+<motion.div
+animate={{y:[0,-60,0]}}
+transition={{duration:18,repeat:Infinity}}
+className="absolute w-[600px] h-[600px] bg-blue-400/20 blur-[150px] rounded-full -top-40 -left-40"
+/>
+
+<motion.div
+animate={{y:[0,60,0]}}
+transition={{duration:20,repeat:Infinity}}
+className="absolute w-[500px] h-[500px] bg-purple-400/20 blur-[150px] rounded-full bottom-0 right-0"
+/>
+
+<div className="container mx-auto px-4 text-center">
+
+<div className="max-w-4xl mx-auto relative">
+
+<div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-indigo-400/30 blur-xl"/>
+
+<div className="relative rounded-[40px] border bg-white/70 backdrop-blur-xl p-14 shadow-xl">
+
+<div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<HelpCircle className="w-10 h-10 text-blue-600"/>
+</div>
+
+<h1 className="text-5xl md:text-6xl font-bold mb-6">
+How Can We Help?
+</h1>
+
+<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+Find answers to common questions or contact our support team.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* CONTACT OPTIONS */}
+
+<section className="py-20">
+
+<div className="container mx-auto px-4 max-w-6xl">
+
+<div className="grid md:grid-cols-3 gap-8">
+
+<Card className="p-8 text-center rounded-2xl bg-gradient-to-br from-white to-blue-50 shadow-xl">
+
+<Phone className="w-10 h-10 text-blue-500 mx-auto mb-4"/>
+
+<h3 className="font-bold text-lg mb-2">Call Us</h3>
+
+<p className="text-muted-foreground mb-3">
+Mon–Sat, 9AM – 7PM
+</p>
+
+<a href="tel:+919876543210" className="text-blue-600 font-semibold">
++91 98765 43210
+</a>
+
+</Card>
+
+
+<Card className="p-8 text-center rounded-2xl bg-gradient-to-br from-white to-green-50 shadow-xl">
+
+<MessageCircle className="w-10 h-10 text-green-500 mx-auto mb-4"/>
+
+<h3 className="font-bold text-lg mb-2">WhatsApp</h3>
+
+<p className="text-muted-foreground mb-3">
+Quick responses
+</p>
+
+<a href="https://wa.me/919876543210" className="text-green-600 font-semibold">
+Chat Now
+</a>
+
+</Card>
+
+
+<Card className="p-8 text-center rounded-2xl bg-gradient-to-br from-white to-purple-50 shadow-xl">
+
+<Mail className="w-10 h-10 text-purple-500 mx-auto mb-4"/>
+
+<h3 className="font-bold text-lg mb-2">Email Us</h3>
+
+<p className="text-muted-foreground mb-3">
+24 hour response
+</p>
+
+<a href="mailto:info@shreeenterprise.com" className="text-purple-600 font-semibold">
+Send Email
+</a>
+
+</Card>
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* SOLAR FAQ */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4 max-w-4xl">
+
+<h2 className="text-4xl font-bold text-center mb-12">
+Solar Energy FAQs
+</h2>
+
+<div className="bg-white/70 backdrop-blur-xl p-10 rounded-3xl shadow-xl border">
+
+<Accordion type="single" collapsible className="space-y-4">
+
+{solarFaqs.map((faq,index)=>(
+
+<AccordionItem
+key={index}
+value={`solar-${index}`}
+className="border rounded-xl px-6"
 >
-  <Link to="/contact?service=Support">Contact Support Team</Link>
+
+<AccordionTrigger className="font-semibold">
+{faq.question}
+</AccordionTrigger>
+
+<AccordionContent className="text-muted-foreground">
+{faq.answer}
+</AccordionContent>
+
+</AccordionItem>
+
+))}
+
+</Accordion>
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* MANDAP FAQ */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4 max-w-4xl">
+
+<h2 className="text-4xl font-bold text-center mb-12">
+Mandap Decoration FAQs
+</h2>
+
+<div className="bg-white/70 backdrop-blur-xl p-10 rounded-3xl shadow-xl border">
+
+<Accordion type="single" collapsible className="space-y-4">
+
+{mandapFaqs.map((faq,index)=>(
+
+<AccordionItem
+key={index}
+value={`mandap-${index}`}
+className="border rounded-xl px-6"
+>
+
+<AccordionTrigger className="font-semibold">
+{faq.question}
+</AccordionTrigger>
+
+<AccordionContent className="text-muted-foreground">
+{faq.answer}
+</AccordionContent>
+
+</AccordionItem>
+
+))}
+
+</Accordion>
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* CTA */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4">
+
+<div className="max-w-3xl mx-auto text-center p-16 rounded-3xl shadow-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white">
+
+<h2 className="text-4xl font-bold mb-4">
+Still Have Questions?
+</h2>
+
+<p className="mb-8 text-white/90">
+Our team is ready to help with solar or event decoration inquiries.
+</p>
+
+<Button
+asChild
+size="lg"
+className="bg-white text-blue-700 hover:scale-105 transition"
+>
+
+<Link to="/contact?service=Support">
+Contact Support Team
+</Link>
+
 </Button>
 
-   
-            </Button>
-          </Card>
-        </div>
-      </section>
-    </div>
-  );
-};
+</div>
 
-export default Help;
+</div>
+
+</section>
+
+</div>
+</>
+
+)
+
+}
+
+export default Help

@@ -12,7 +12,7 @@ const LeadsPage = () => {
 
   const loadLeads = async () => {
     setLoading(true);
-    const res: any = await api.get("/leads");
+    const res: any = await api.get("/admin/leads");
     setLeads(res.data);
     setLoading(false);
   };

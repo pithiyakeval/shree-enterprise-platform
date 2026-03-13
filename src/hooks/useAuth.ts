@@ -13,26 +13,60 @@ export const useAuth = () => {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
-    try {
-      clearToken(); // 🚨 clear old token first
+  const login = async (
+ email:string,
+ password:string
+)=>{
 
-      const res = await api.post("/login", { email, password });
+ try{
 
-      const token = res.data.access_token;
+  clearToken();
 
-      if (!token) return false;
+  const res =
+  await api.post("/login",{
 
-      setToken(token);
-      setUser({ email });
+   email,
+   password
 
-      return true;
+  });
 
-    } catch (err) {
-      console.error("LOGIN FAILED:", err);
-      return false;
-    }
-  };
+  const token =
+  res.data?.access_token;
+
+  if(!token){
+
+   console.log("No token");
+
+   return false;
+
+  }
+
+  setToken(token);
+
+  setUser({
+
+   email
+
+  });
+
+  return true;
+
+ }catch(err:any){
+
+  console.log(
+
+   "LOGIN ERROR:",
+
+   err.response?.data ||
+   err.message
+
+  );
+
+  return false;
+
+ }
+
+};
   const logout = () => {
     clearToken();
     setUser(null);

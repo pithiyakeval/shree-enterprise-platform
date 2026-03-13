@@ -1,324 +1,431 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import solarBg from "@/assets/hero-bg.jpg"
+import { Helmet } from "react-helmet-async"
 import {
   Sun,
-  Zap,
-  Wrench,
   Shield,
   Check,
-  FileCheck,
   Factory,
   Timer,
   Leaf,
-  BadgeCheck,
   HelpCircle,
   TrendingUp,
-  Battery,
-  Sparkles,
-} from "lucide-react";
-import { Link } from "react-router-dom";
+  Battery
+} from "lucide-react"
+
+import { Link } from "react-router-dom"
 
 const SolarServices = () => {
+
   return (
-    <div className="min-h-screen bg-background">
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-hero py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
-            Solar Energy Services
-          </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-            Clean energy solutions that reduce bills, increase savings, and power a sustainable future.
-          </p>
-        </div>
-      </section>
+<>
 
-      {/* Why Go Solar */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-4xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <Leaf className="text-primary" /> Why Go Solar?
-          </h2>
+  <Helmet>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: TrendingUp,
-                title: "Save ₹1,500–₹4,000/month",
-                desc: "Reduce electricity bills with efficient solar panel systems.",
-              },
-              {
-                icon: Shield,
-                title: "Up to 40% Subsidy",
-                desc: "Get government-backed financial support under PM Surya Ghar Yojana.",
-              },
-              {
-                icon: Battery,
-                title: "25+ Year Panel Life",
-                desc: "Durable, long-lasting technology with minimal maintenance.",
-              },
-              {
-                icon: Sun,
-                title: "Works in Rural Areas",
-                desc: "Hybrid systems ensure performance even with low grid supply.",
-              },
-              {
-                icon: Check,
-                title: "Increases Property Value",
-                desc: "Homes with solar systems have higher long-term value.",
-              },
-              {
-                icon: Leaf,
-                title: "Eco-Friendly Energy",
-                desc: "Reduce pollution and contribute to a cleaner future.",
-              },
-            ].map((item, i) => (
-              <Card key={i} className="p-6 shadow-card hover:shadow-hover transition-smooth">
-                <item.icon className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+  <title>
+  Solar Panel Installation in Junagadh | Shree Enterprise
+  </title>
 
-      {/* Solar Packages */}
-      <section className="py-20 bg-secondary">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-4xl font-bold text-foreground mb-12">Solar Packages</h2>
+  <meta
+  name="description"
+  content="Professional solar panel installation services in Junagadh, Mangrol, Talala and nearby villages. Government subsidy assistance available under PM Surya Ghar Yojana."
+  />
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                kw: "2.5 kW",
-                units: "10 units/day avg.",
-                savings: "₹1,500–₹2,000 monthly",
-              },
-              {
-                kw: "3 kW",
-                units: "12–14 units/day",
-                savings: "₹2,000–₹2,500 monthly",
-              },
-              {
-                kw: "5 kW",
-                units: "20 units/day",
-                savings: "₹3,000–₹4,000 monthly",
-              },
-            ].map((p, i) => (
-              <Card key={i} className="p-8 shadow-card hover:shadow-hover transition-smooth">
-                <h3 className="text-3xl font-bold text-primary mb-2">{p.kw}</h3>
-                <p className="text-muted-foreground mb-4">{p.units}</p>
-                <p className="text-accent font-semibold">{p.savings}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+  <meta
+  name="keywords"
+  content="solar installation Junagadh, solar panel Mangrol, solar subsidy Gujarat, rooftop solar Junagadh, solar company Junagadh"
+  />
 
-      {/* Solar Pricing Section */}
-<section className="py-20 bg-background">
-  <div className="container mx-auto px-4 max-w-6xl">
-    <h2 className="text-4xl font-bold text-foreground mb-12 text-center">
-      Solar Pricing (After Government Subsidy)
-    </h2>
+  <link
+  rel="canonical"
+  href="https://yourdomain.com/solar-services"
+  />
 
-    <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-12">
-      Transparent and affordable pricing tailored for middle-class families.
-      Get high-quality solar systems with subsidy benefits and long-term savings.
-    </p>
+  {/* OpenGraph */}
 
-    <div className="grid md:grid-cols-3 gap-8">
-      {/* 2.5 kW */}
-      <Card className="p-8 shadow-card hover:shadow-hover transition-smooth border-border/50">
-        <h3 className="text-3xl font-bold text-primary mb-3">2.5 kW</h3>
-        <p className="text-muted-foreground mb-4">Ideal for 1BHK or low-usage homes.</p>
+  <meta property="og:title" content="Solar Panel Installation in Junagadh | Shree Enterprise" />
 
-        <div className="text-2xl font-bold mb-2">₹65,000 – ₹75,000</div>
-        <p className="text-sm text-muted-foreground mb-6">
-          Includes subsidy under PM Surya Ghar Yojana.
-        </p>
+  <meta
+  property="og:description"
+  content="Reduce electricity bills with professional rooftop solar installation services in Junagadh and Mangrol."
+  />
 
-        <ul className="space-y-2 text-muted-foreground mb-6">
-          <li className="flex gap-2"><Check className="text-primary" /> 10 units/day output</li>
-          <li className="flex gap-2"><Check className="text-primary" /> Saves ₹1,500–₹2,000/month</li>
-          <li className="flex gap-2"><Check className="text-primary" /> Free documentation help</li>
-        </ul>
+  <meta property="og:type" content="website" />
 
-        <Button
-  asChild
-  className="w-full bg-primary text-primary-foreground hover:bg-primary-dark"
->
-  <Link to="/contact?service=Solar&kw=2.5 kW">Get Quote</Link>
-</Button>
+  <meta property="og:url" content="https://yourdomain.com/solar-services" />
 
-      </Card>
+  <meta property="og:image" content="/solar-preview.jpg" />
 
-      {/* 3 kW */}
-      <Card className="p-8 shadow-card hover:shadow-hover transition-smooth border-border/50">
-        <h3 className="text-3xl font-bold text-primary mb-3">3 kW</h3>
-        <p className="text-muted-foreground mb-4">Perfect for medium households.</p>
+  {/* Twitter */}
 
-        <div className="text-2xl font-bold mb-2">₹80,000 – ₹95,000</div>
-        <p className="text-sm text-muted-foreground mb-6">
-          Includes subsidy under PM Surya Ghar Yojana.
-        </p>
+  <meta name="twitter:card" content="summary_large_image" />
 
-        <ul className="space-y-2 text-muted-foreground mb-6">
-          <li className="flex gap-2"><Check className="text-primary" /> 12–14 units/day output</li>
-          <li className="flex gap-2"><Check className="text-primary" /> Saves ₹2,000–₹2,500/month</li>
-          <li className="flex gap-2"><Check className="text-primary" /> High-efficiency panels</li>
-        </ul>
+  <meta
+  name="twitter:title"
+  content="Solar Panel Installation in Junagadh | Shree Enterprise"
+  />
 
-        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary-dark">
-          Get Quote
-        </Button>
-        
-      </Card>
+  <meta
+  name="twitter:description"
+  content="Affordable rooftop solar installation with subsidy assistance."
+  />
 
-      {/* 5 kW */}
-      <Card className="p-8 shadow-card hover:shadow-hover transition-smooth border-border/50">
-        <h3 className="text-3xl font-bold text-primary mb-3">5 kW</h3>
-        <p className="text-muted-foreground mb-4">Best for large homes & businesses.</p>
+  <meta
+  name="twitter:image"
+  content="/solar-preview.jpg"
+  />
 
-        <div className="text-2xl font-bold mb-2">₹1.4L – ₹1.6L</div>
-        <p className="text-sm text-muted-foreground mb-6">
-          Includes subsidy under PM Surya Ghar Yojana.
-        </p>
+  {/* Geo tags */}
 
-        <ul className="space-y-2 text-muted-foreground mb-6">
-          <li className="flex gap-2"><Check className="text-primary" /> 20+ units/day output</li>
-          <li className="flex gap-2"><Check className="text-primary" /> Saves ₹3,000–₹4,000/month</li>
-          <li className="flex gap-2"><Check className="text-primary" /> Runs ACs, fridges, TVs & more</li>
-        </ul>
+  <meta name="geo.region" content="IN-GJ" />
+  <meta name="geo.placename" content="Junagadh" />
+  <meta name="geo.position" content="21.0245;70.2212" />
 
-        <Button className="w-full bg-primary text-primary-foreground hover:bg-primary-dark">
-          Get Quote
-        </Button>
-      </Card>
-    </div>
+  {/* Structured Data */}
 
-    <p className="text-center text-muted-foreground mt-10">
-      *Final pricing depends on roof structure, inverter type, wiring distance, and brand selection.
-    </p>
-  </div>
+  <script type="application/ld+json">
+  {`
+  {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Solar Panel Installation",
+  "provider": {
+  "@type": "LocalBusiness",
+  "name": "Shree Enterprise"
+  },
+  "areaServed": {
+  "@type": "Place",
+  "name": "Junagadh District"
+  },
+  "serviceType": "Solar Panel Installation",
+  "description": "Professional rooftop solar panel installation services in Junagadh, Mangrol and nearby villages.",
+  "offers": {
+  "@type": "Offer",
+  "priceCurrency": "INR",
+  "price": "65000"
+  }
+  }
+  `}
+  </script>
+
+  </Helmet>
+
+  <div className="relative min-h-screen overflow-hidden">
+
+{/* PARALLAX BACKGROUND */}
+
+<div
+className="fixed inset-0 -z-20 bg-cover bg-center"
+style={{ backgroundImage:`url(${solarBg})` }}
+/>
+
+{/* OVERLAY */}
+
+<div className="fixed inset-0 -z-10 bg-gradient-to-b from-white/85 via-white/80 to-indigo-50/90 backdrop-blur-[1px]" />
+
+
+{/* HERO */}
+
+<section className="relative py-28">
+
+<motion.div
+animate={{y:[0,-60,0]}}
+transition={{duration:18,repeat:Infinity}}
+className="absolute w-[600px] h-[600px] bg-yellow-400/20 blur-[150px] rounded-full -top-40 -left-40"
+/>
+
+<motion.div
+animate={{y:[0,60,0]}}
+transition={{duration:20,repeat:Infinity}}
+className="absolute w-[500px] h-[500px] bg-blue-400/20 blur-[150px] rounded-full bottom-0 right-0"
+/>
+
+<div className="container mx-auto px-4">
+
+<div className="max-w-5xl mx-auto relative">
+
+<div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-yellow-400/30 via-blue-400/30 to-green-400/30 blur-xl"/>
+
+<div className="relative rounded-[40px] border bg-white/70 backdrop-blur-xl p-14 text-center shadow-[0_40px_80px_-20px_rgba(0,0,0,0.25)]">
+
+<span className="inline-block mb-6 px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 text-sm font-medium">
+SOLAR ENERGY SERVICES
+</span>
+
+<h1 className="text-5xl md:text-6xl font-bold mb-6 text-slate-800">
+Smart Solar Solutions for Your Home
+</h1>
+
+<p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+Clean energy solutions that reduce electricity bills, increase savings,
+and power a sustainable future.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
 
-      {/* Trusted Brands */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-4xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <Factory className="text-primary" /> Trusted Solar Brands
-          </h2>
+{/* WHY GO SOLAR */}
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 shadow-card">
-              <h3 className="text-2xl font-bold mb-2">Adani Solar</h3>
-              <p className="text-muted-foreground">
-                India's leading solar manufacturer with high-efficiency mono PERC panels and
-                25-year performance warranty.
-              </p>
-            </Card>
+<section className="py-24">
 
-            <Card className="p-6 shadow-card">
-              <h3 className="text-2xl font-bold mb-2">Waaree Energies</h3>
-              <p className="text-muted-foreground">
-                Globally trusted for powerful, durable panels with excellent heat tolerance.
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
+<div className="container mx-auto px-4 max-w-6xl">
 
-      {/* Installation Timeline */}
-      <section className="py-20 bg-secondary">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-12">Installation Timeline</h2>
+<div className="relative">
 
-          <div className="space-y-6">
-            {[
-              "Site Survey: 1–2 days — load check & roof analysis",
-              "Documentation: 1–3 days — subsidy forms & net metering",
-              "Installation: 2–4 days — panels, inverter, electrical setup",
-              "Inspection: 1–2 days — DISCOM activation",
-            ].map((t, i) => (
-              <Card key={i} className="p-6 flex items-start gap-3 shadow-card">
-                <Timer className="text-primary w-6 h-6 mt-1" />
-                <p className="text-muted-foreground">{t}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+<div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-blue-400/20 to-green-400/20 blur-xl rounded-3xl"/>
 
-      {/* Government Subsidy Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-8">
-            Government Subsidy Details
-          </h2>
+<div className="relative grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-10 rounded-3xl border bg-white/70 backdrop-blur-xl shadow-xl">
 
-          <Card className="p-8 shadow-card mb-10">
-            <p className="text-lg text-muted-foreground mb-4">
-              Under PM Surya Ghar Rooftop Scheme:
-            </p>
+{[
+{icon:TrendingUp,title:"Save ₹1,500–₹4,000/month",desc:"Reduce electricity bills with efficient solar panel systems."},
+{icon:Shield,title:"Up to 40% Subsidy",desc:"Government financial support under PM Surya Ghar Yojana."},
+{icon:Battery,title:"25+ Year Panel Life",desc:"Durable long-lasting solar technology."},
+{icon:Sun,title:"Works in Rural Areas",desc:"Hybrid systems work even with unstable grid."},
+{icon:Check,title:"Increases Property Value",desc:"Homes with solar have higher value."},
+{icon:Leaf,title:"Eco-Friendly Energy",desc:"Reduce pollution and carbon emissions."},
+].map((item,i)=>{
 
-            <ul className="space-y-3">
-              <li className="flex gap-3"><Check className="text-primary" /> ₹18,000 per kW (up to 3 kW)</li>
-              <li className="flex gap-3"><Check className="text-primary" /> ₹9,000 per kW (3–10 kW)</li>
-            </ul>
-          </Card>
+const Icon = item.icon
 
-          <p className="text-muted-foreground">
-            Subsidy is credited directly to your account within 30–60 days after DISCOM approval.
-          </p>
-        </div>
-      </section>
+return(
 
-      {/* FAQs */}
-      <section className="py-20 bg-secondary">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-12">Frequently Asked Questions</h2>
+<motion.div key={i} whileHover={{y:-10,scale:1.05}}>
 
-          <div className="space-y-6">
-            {[
-              ["How much money will I save?", "Most households save ₹1,500–₹4,000 per month depending on usage."],
-              ["How long does installation take?", "Typical installations take 5–10 working days from survey to activation."],
-              ["Can solar work in villages?", "Yes! Hybrid inverters ensure performance even with unstable grid supply."],
-            ].map(([q, a], i) => (
-              <Card key={i} className="p-6 shadow-card">
-                <h3 className="font-bold text-lg mb-2 flex gap-2">
-                  <HelpCircle className="text-primary" />
-                  {q}
-                </h3>
-                <p className="text-muted-foreground">{a}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+<Card className="p-6 rounded-2xl bg-gradient-to-br from-white to-yellow-50 shadow-lg">
 
-      {/* CTA */}
-      <section className="py-20 text-center">
-        <h2 className="text-4xl font-bold text-foreground mb-4">
-          Ready to Start Your Solar Journey?
-        </h2>
-        <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-          Contact us for a free site survey, pricing, and subsidy guidance.
-        </p>
+<Icon className="w-10 h-10 text-yellow-500 mb-4"/>
 
-        <Button
-          asChild
-          size="lg"
-          className="bg-accent text-accent-foreground hover:bg-accent-light transition-smooth"
-        >
-          <Link to="/contact">Request Free Quote</Link>
-        </Button>
-      </section>
-    </div>
-  );
-};
+<h3 className="text-xl font-bold mb-2">{item.title}</h3>
 
-export default SolarServices;
+<p className="text-muted-foreground">{item.desc}</p>
+
+</Card>
+
+</motion.div>
+
+)
+
+})}
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* SOLAR PACKAGES */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4 max-w-6xl">
+
+<h2 className="text-4xl font-bold text-center mb-16">
+Solar Packages
+</h2>
+
+<div className="grid md:grid-cols-3 gap-8">
+
+{[
+{kw:"2.5 kW",units:"10 units/day avg.",savings:"₹1,500–₹2,000 monthly"},
+{kw:"3 kW",units:"12–14 units/day",savings:"₹2,000–₹2,500 monthly"},
+{kw:"5 kW",units:"20 units/day",savings:"₹3,000–₹4,000 monthly"},
+].map((p,i)=>(
+
+<motion.div key={i} whileHover={{y:-10,scale:1.05}}>
+
+<Card className="p-8 rounded-2xl border bg-white/80 backdrop-blur-lg shadow-xl">
+
+<h3 className="text-3xl font-bold text-yellow-600 mb-2">{p.kw}</h3>
+
+<p className="text-muted-foreground mb-4">{p.units}</p>
+
+<p className="text-green-600 font-semibold">{p.savings}</p>
+
+</Card>
+
+</motion.div>
+
+))}
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* SOLAR PRICING */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4 max-w-6xl">
+
+<h2 className="text-4xl font-bold text-center mb-16">
+Solar Pricing (After Subsidy)
+</h2>
+
+<div className="grid md:grid-cols-3 gap-8">
+
+{[
+{kw:"2.5 kW",price:"₹65k – ₹75k",units:"10 units/day"},
+{kw:"3 kW",price:"₹80k – ₹95k",units:"12–14 units/day"},
+{kw:"5 kW",price:"₹1.4L – ₹1.6L",units:"20+ units/day"},
+].map((item,i)=>(
+
+<motion.div key={i} whileHover={{scale:1.05}}>
+
+<Card className="p-8 rounded-2xl border bg-gradient-to-br from-white to-blue-50 shadow-xl">
+
+<h3 className="text-3xl font-bold text-primary mb-3">
+{item.kw}
+</h3>
+
+<div className="text-2xl font-bold mb-4">
+{item.price}
+</div>
+
+<ul className="space-y-2 text-muted-foreground mb-6">
+
+<li className="flex gap-2"><Check className="text-primary"/> {item.units} output</li>
+<li className="flex gap-2"><Check className="text-primary"/> Subsidy assistance</li>
+<li className="flex gap-2"><Check className="text-primary"/> Installation included</li>
+
+</ul>
+
+<Button asChild className="w-full">
+<Link to="/contact">Get Quote</Link>
+</Button>
+
+</Card>
+
+</motion.div>
+
+))}
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* INSTALLATION TIMELINE */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4 max-w-5xl">
+
+<h2 className="text-4xl font-bold mb-12">
+Installation Timeline
+</h2>
+
+<div className="space-y-6">
+
+{[
+"Site Survey: 1–2 days — roof analysis",
+"Documentation: 1–3 days — subsidy forms",
+"Installation: 2–4 days — panels & inverter",
+"Inspection: 1–2 days — DISCOM activation",
+].map((t,i)=>(
+
+<Card key={i} className="p-6 flex gap-3 shadow-lg rounded-xl">
+
+<Timer className="text-primary"/>
+
+<p className="text-muted-foreground">{t}</p>
+
+</Card>
+
+))}
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* FAQ */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4 max-w-5xl">
+
+<h2 className="text-4xl font-bold mb-12">
+Frequently Asked Questions
+</h2>
+
+<div className="space-y-6">
+
+{[
+["How much money will I save?","Most households save ₹1,500–₹4,000 monthly."],
+["How long does installation take?","Usually 5–10 working days."],
+["Does solar work in villages?","Yes hybrid systems work even with unstable grid."],
+].map(([q,a],i)=>(
+
+<Card key={i} className="p-6 shadow-lg rounded-xl">
+
+<h3 className="font-bold text-lg mb-2 flex gap-2">
+<HelpCircle className="text-primary"/>
+{q}
+</h3>
+
+<p className="text-muted-foreground">{a}</p>
+
+</Card>
+
+))}
+
+</div>
+
+</div>
+
+</section>
+
+
+{/* CTA */}
+
+<section className="py-24">
+
+<div className="container mx-auto px-4">
+
+<div className="max-w-4xl mx-auto text-center p-16 rounded-3xl shadow-2xl bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 text-white">
+
+<h2 className="text-4xl font-bold mb-4">
+Start Saving with Solar Today
+</h2>
+
+<p className="mb-8 text-white/90">
+Contact us for a free site survey and solar consultation.
+</p>
+
+<Button asChild size="lg" className="bg-white text-black">
+
+<Link to="/contact">Request Free Quote</Link>
+
+</Button>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+</>
+
+)
+}
+
+export default SolarServices
