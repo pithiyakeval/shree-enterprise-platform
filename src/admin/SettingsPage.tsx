@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
 import { api } from "@/lib/api";
 import { Card } from "@/components/ui/card";
+import { clearToken } from "@/lib/auth";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Users,
@@ -23,9 +25,10 @@ const SettingsPage = () => {
   const [emailAlerts, setEmailAlerts] = useState(true);
 
   const [newPassword, setNewPassword] = useState("");
+  const navigate = useNavigate();
 
   const loadAdmins = async () => {
-    const res: any = await api.get("/admins");
+    const res: any = await api.get("/admin/admins");
     setAdmins(res.data || []);
   };
 
@@ -36,7 +39,7 @@ const SettingsPage = () => {
   const registerAdmin = async () => {
     if (!email || !password) return alert("Enter email & password");
 
-    await api.post("/register", { email, password });
+    await api.post("/admin/register",{ email,password })
 
     setEmail("");
     setPassword("");
@@ -49,7 +52,7 @@ const SettingsPage = () => {
 
     if (!pass) return;
 
-    await api.post(`/reset-password/${id}`, {
+    await api.post(`/admin/reset-password/${id}`, {
       password: pass,
     });
 
@@ -61,7 +64,7 @@ const SettingsPage = () => {
 
     const adminId = 1;
 
-    await api.post(`/reset-password/${adminId}`, {
+    await api.post(`/admin/reset-password/${adminId}`, {
       password: newPassword,
     });
 
@@ -71,12 +74,12 @@ const SettingsPage = () => {
   };
 
   const logoutAll = () => {
-    localStorage.removeItem("auth_token");
-    window.location.href = "/admin/login";
+    clearToken();
+      navigate("/admin/login");
   };
 
   const exportLeads = async () => {
-    const res: any = await api.get("/leads");
+    const res = await api.get("/admin/leads").catch(()=>({data:[]}));
 
     const leads = res.data;
 

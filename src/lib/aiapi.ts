@@ -1,35 +1,32 @@
 import axios from "axios";
 
 const AI_BASE =
-import.meta.env.VITE_API_BASE ||
-"https://shree-enterprise-backend-eqpg.onrender.com";
+  import.meta.env.VITE_API_BASE ||
+  "https://shree-enterprise-backend-eqpg.onrender.com";
 
 export const aiApi = axios.create({
-
   baseURL: AI_BASE,
-
-  timeout:60000,
-
-  headers:{
-    "Content-Type":"application/json"
-  }
-
+  timeout: 60000, // 60s for LLM responses
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-export async function askAI(question:string){
+export async function askAI(question: string) {
 
-  try{
+  if (!question || !question.trim()) {
+    return { answer: "Please ask a valid question." };
+  }
 
-    const res =
-    await aiApi.post("/api/ai/chat",{
+  try {
 
-      question
-
+    const res = await aiApi.post("/api/ai/chat", {
+      question: question.trim(),
     });
 
     return res.data;
 
-  }catch(e:any){
+  } catch (e: any) {
 
     console.log(
       "AI ERROR:",
@@ -37,11 +34,14 @@ export async function askAI(question:string){
       e.message
     );
 
+    let msg = "AI temporarily unavailable";
+
+    if (e.code === "ECONNABORTED") {
+      msg = "AI response timeout. Please try again.";
+    }
+
     return {
-
-      answer:
-      "AI temporarily unavailable"
-
+      answer: msg
     };
 
   }

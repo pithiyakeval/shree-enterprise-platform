@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Sun, Lock, Mail, Eye, EyeOff } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 export default function AdminLogin() {
   const { login } = useAuth();
 
@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
-
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -19,9 +19,9 @@ export default function AdminLogin() {
     const success = await login(email, password);
 
     if (success) {
-      window.location.href = "/admin/dashboard";
+      navigate("/admin/dashboard");
     } else {
-      setError("Invalid email or password");
+      setError("Invalid email or password or server unavailable");
     }
 
     setLoading(false);

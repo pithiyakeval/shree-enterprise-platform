@@ -1,5 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { clearToken } from "@/lib/auth";
 import {
   Menu,
   X,
@@ -18,13 +19,17 @@ import {
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
   const logout = () => {
-    localStorage.removeItem("auth_token");
-    window.location.href = "/admin/login";
+
+    clearToken();
+
+    navigate("/admin/login");
+
   };
 
   const nav = [
@@ -32,14 +37,13 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     { label: "All Leads", path: "/admin/leads", icon: Users },
     { label: "Solar Requests", path: "/admin/solar", icon: Sun },
     { label: "Mandap Requests", path: "/admin/mandap", icon: Flower2 },
-    { label: "Both Services", path: "/admin/both", icon: Layers },
+    // { label: "Combined", path: "/admin/combined", icon: Layers },
     { label: "Settings", path: "/admin/settings", icon: Settings },
   ];
 
   return (
     <div className="flex min-h-screen bg-[#F5F7FB]">
 
-      {/* Overlay */}
       {mobileOpen && (
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
@@ -47,7 +51,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`
         fixed md:static top-0 left-0 h-full z-50
@@ -57,10 +60,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       `}
       >
 
-        {/* Curvy container */}
         <div className="h-full bg-white rounded-r-3xl shadow-2xl border-r flex flex-col">
 
-          {/* Header */}
           <div className="px-6 py-6 border-b flex items-center justify-between">
 
             {!collapsed && (
@@ -96,12 +97,12 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
           </div>
 
-          {/* Navigation */}
           <nav className="p-4 space-y-2 flex-1">
 
             {nav.map((item) => {
 
-              const active = location.pathname === item.path;
+              const active =
+              location.pathname.startsWith(item.path);
 
               return (
                 <Link
@@ -132,7 +133,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
           </nav>
 
-          {/* Bottom User Block */}
           <div className="border-t p-4">
 
             {!collapsed && (
@@ -150,7 +150,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
             )}
 
-            {/* Logout */}
             <button
               onClick={logout}
               className="
@@ -175,10 +174,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
       </aside>
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col">
 
-        {/* Mobile Header */}
         <header
           className="
           md:hidden flex items-center justify-between
@@ -199,7 +196,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
         </header>
 
-        {/* Desktop Header */}
         <header
           className="
           hidden md:flex items-center justify-between
@@ -226,7 +222,6 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
         </header>
 
-        {/* Page Content */}
         <main className="flex-1 p-4 md:p-8 overflow-y-auto">
 
           {children}

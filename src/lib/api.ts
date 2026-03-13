@@ -25,10 +25,9 @@ api.interceptors.request.use(
 
   const token=getToken();
 
-  // attach token except login
-  if(token && !config.url?.includes("/admin/login")){
+  if(token){
 
-    config.headers.Authorization=
+    config.headers.Authorization =
     `Bearer ${token}`;
 
   }
@@ -55,12 +54,31 @@ api.interceptors.response.use(
     error.message
   );
 
-  // AUTO LOGOUT IF TOKEN INVALID
+  // TOKEN EXPIRED OR INVALID
   if(error.response?.status===401){
 
     clearToken();
 
-    window.location.href="/admin/login";
+    // prevent infinite redirect loop
+    if(!window.location.pathname.includes("/admin/login")){
+
+      window.location.href="/admin/login";
+
+    }
+
+  }
+
+  // SERVER ERROR HANDLING
+  if(error.response?.status===500){
+
+    console.error("Server error");
+
+  }
+
+  // NETWORK ERROR
+  if(!error.response){
+
+    console.error("Network error");
 
   }
 

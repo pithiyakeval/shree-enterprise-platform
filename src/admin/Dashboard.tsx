@@ -44,7 +44,7 @@ const Dashboard = () => {
     setLoading(true);
 
     api
-      .get("/leads")
+      .get("/admin/leads")
       .then((res: any) => {
 
         setLeads(res.data || []);

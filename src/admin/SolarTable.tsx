@@ -28,7 +28,7 @@
 
     // SEARCH
     const filtered = rows.filter((r) => {
-      const q = search.toLowerCase();
+      const q = search.trim().toLowerCase();
 
       return (
         r.name?.toLowerCase().includes(q) ||
@@ -48,9 +48,13 @@
     const deleteLead = async (id: number) => {
       if (!confirm("Delete this solar lead?")) return;
 
-      await api.delete(`/admin/lead/${id}`);
+      await api.delete(`/admin/lead/${id}`)
+      .catch(()=>alert("Delete failed"));
 
       setRows((prev) => prev.filter((r) => r.id !== id));
+      if(page>1 && paginated.length===1){
+        setPage(page-1);
+      }
     };
 
     return (
@@ -64,7 +68,11 @@
             <input
               placeholder="Search by name, phone, city..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e)=>{
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+              
               className="w-full border rounded-lg pl-9 p-2.5 focus:ring-2 focus:ring-yellow-400"
             />
           </div>

@@ -25,9 +25,9 @@ const MandapTable = ({ data }: { data: any[] }) => {
 
     return (
       !q ||
-      r.name.toLowerCase().includes(q) ||
+      r.name?.toLowerCase().includes(q) ||
       r.phone.includes(q) ||
-      r.city.toLowerCase().includes(q)
+      r.city?.toLowerCase().includes(q)
     );
   });
 
@@ -45,10 +45,15 @@ const MandapTable = ({ data }: { data: any[] }) => {
   const confirmDelete = async () => {
     if (!deleteId) return;
 
-    await api.delete(`/admin/lead/${deleteId}`);
+    await api.delete(`/admin/lead/${deleteId}`)
+    .catch(()=>alert("Delete failed"));
 
     setRows((r) => r.filter((x) => x.id !== deleteId));
     setDeleteId(null);
+
+    if(page>1 && paginated.length===1){
+      setPage(page-1);
+    }
   };
 
   return (

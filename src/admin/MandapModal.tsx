@@ -12,7 +12,7 @@ import {
 const MandapModal = ({ row, onClose }: any) => {
 
   const copyPhone = () => {
-    navigator.clipboard.writeText(row.phone);
+    navigator.clipboard?.writeText(row.phone || "");
   };
 
   const call = () => {
@@ -20,7 +20,10 @@ const MandapModal = ({ row, onClose }: any) => {
   };
 
   const whatsapp = () => {
-    window.open(`https://wa.me/91${row.phone}`, "_blank");
+    window.open(
+    `https://wa.me/91${row.phone?.replace(/\D/g,"")}`,
+    "_blank"
+    );
   };
 
   const fields = [
@@ -56,7 +59,7 @@ const MandapModal = ({ row, onClose }: any) => {
 
           <span
             className={`inline-block mt-2 px-3 py-1 text-xs rounded-full font-semibold ${
-              row.status === "Done"
+              row.status?.toLowerCase() === "done"
                 ? "bg-green-100 text-green-700"
                 : "bg-yellow-100 text-yellow-700"
             }`}

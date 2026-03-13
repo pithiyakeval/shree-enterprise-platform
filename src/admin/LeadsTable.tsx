@@ -73,14 +73,16 @@ const LeadsTable = ({ leads }: { leads: Lead[] }) => {
   /* ---------------- Actions ---------------- */
 
   const markDone = async (id: number) => {
-    await api.post(`/admin/lead/${id}/done`);
-    setData((d) => d.map((x) => (x.id === id ? { ...x, status: "Done" } : x)));
+    await api.post(`/admin/lead/${id}/done`)
+    .catch(()=>alert("Failed to update lead"));
+    setData((d) => d.map((x) => (x.id === id ? { ...x, status: "done" } : x)));
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
 
-    await api.delete(`/admin/lead/${deleteId}`);
+    await api.delete(`/admin/lead/${deleteId}`)
+    .catch(()=>alert("Delete failed"));
 
     setData((d) => d.filter((x) => x.id !== deleteId));
     setDeleteId(null);
@@ -165,7 +167,7 @@ const LeadsTable = ({ leads }: { leads: Lead[] }) => {
 
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        lead.status === "Done"
+                          lead.status?.toLowerCase() === "done"
                           ? "bg-green-100 text-green-700"
                           : "bg-yellow-100 text-yellow-700"
                       }`}
@@ -247,7 +249,7 @@ const LeadsTable = ({ leads }: { leads: Lead[] }) => {
 
             <span
               className={`inline-block mt-2 px-3 py-1 text-xs rounded-full ${
-                lead.status === "Done"
+                lead.status?.toLowerCase() === "done"
                   ? "bg-green-200 text-green-800"
                   : "bg-yellow-200 text-yellow-800"
               }`}

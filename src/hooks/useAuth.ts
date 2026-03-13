@@ -3,80 +3,111 @@ import api from "@/lib/api";
 import { setToken, clearToken, getToken } from "@/lib/auth";
 
 export const useAuth = () => {
+
   const [user, setUser] = useState<any>(null);
+  const [loading,setLoading]=useState(true);
 
-  // Auto-login if token exists
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      setUser({ email: "admin" });
+  // AUTO LOGIN FROM TOKEN
+  useEffect(()=>{
+
+    const token=getToken();
+
+    if(token){
+
+      setUser({
+        email:"admin"
+      });
+
+    } else{
+      clearToken();
     }
-  }, []);
 
+    setLoading(false);
+
+  },[]);
+
+
+  // LOGIN
   const login = async (
- email:string,
- password:string
-)=>{
+    email:string,
+    password:string
+  )=>{
 
- try{
+    try{
 
-  clearToken();
+      clearToken();
 
-  const res =
-  await api.post("/login",{
+      const res=
+      await api.post("/admin/login",{
 
-   email,
-   password
+        email,
+        password
 
-  });
+      });
 
-  const token =
-  res.data?.access_token;
+      const token=
+      res.data?.access_token;
 
-  if(!token){
+      if(!token){
 
-   console.log("No token");
+        return false;
 
-   return false;
+      }
 
-  }
+      setToken(token);
 
-  setToken(token);
+      setUser({
 
-  setUser({
+        email
 
-   email
+      });
 
-  });
+      return true;
 
-  return true;
+    }catch(err:any){
 
- }catch(err:any){
+      console.log(
 
-  console.log(
+        "LOGIN ERROR:",
 
-   "LOGIN ERROR:",
+        err.response?.data ||
+        err.message
 
-   err.response?.data ||
-   err.message
+      );
 
-  );
+      return false;
 
-  return false;
+    }
 
- }
+  };
 
-};
-  const logout = () => {
+
+  // LOGOUT
+  const logout=()=>{
+
     clearToken();
+
     setUser(null);
-    window.location.href = "/admin/login";
+
+    window.location.href="/admin/login";
+
   };
 
-  return {
+
+  return{
+
     user,
+
     login,
+
     logout,
-    isAuthenticated: !!user,
+
+    loading,
+
+    isAuthenticated:!!user
+
+    
+
   };
+
 };

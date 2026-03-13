@@ -18,11 +18,14 @@ const LeadModal = ({
   onClose: () => void;
 }) => {
   const copyPhone = () => {
-    navigator.clipboard.writeText(lead.phone);
+    navigator.clipboard?.writeText(lead.phone || "");
   };
 
   const whatsapp = () => {
-    window.open(`https://wa.me/91${lead.phone}`, "_blank");
+    window.open(
+    `https://wa.me/91${lead.phone?.replace(/\D/g,"")}`,
+    "_blank"
+    );
   };
 
   const call = () => {
@@ -37,8 +40,8 @@ const LeadModal = ({
     { label: "Service", value: lead.service },
     { label: "KW", value: lead.kw },
     { label: "Budget", value: lead.budget },
-    { label: "Event Type", value: lead.eventType },
-    { label: "Event Date", value: lead.eventDate },
+    { label: "Event Type", value: lead.event_type },
+    { label: "Event Date", value: lead.event_date },
     { label: "Message", value: lead.message },
     { label: "Source", value: lead.where_from },
   ];
@@ -68,7 +71,7 @@ const LeadModal = ({
 
             <span
               className={`px-3 py-1 text-xs rounded-full font-semibold ${
-                lead.status === "Done"
+                lead.status?.toLowerCase() === "done"
                   ? "bg-green-100 text-green-700"
                   : "bg-yellow-100 text-yellow-700"
               }`}
