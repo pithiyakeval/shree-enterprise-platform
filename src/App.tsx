@@ -2,21 +2,20 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import ChatbotWidget from "./components/Chatbot/ChatbotWidget";
 
+/* PUBLIC PAGES */
 import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
 import Services from "./pages/SolarServices";
 import Help from "./pages/Help";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import SolarPricing from "./pages/SolarPricing";
-import MandapGallery from "./pages/MandapGallery";
 import MandapService from "./pages/MandapService";
 import SolarImages from "./pages/SolarImage";
 import MandapImages from "./pages/MandapImage";
@@ -28,7 +27,7 @@ import LeadsPage from "./admin/LeadsPage";
 import SolarPage from "./admin/SolarPage";
 import MandapPage from "./admin/MandapPage";
 import SettingsPage from "./admin/SettingsPage";
-
+import AdminLayout from "./admin/AdminLayout";
 
 /* QUERY CLIENT */
 const queryClient = new QueryClient({
@@ -41,109 +40,92 @@ const queryClient = new QueryClient({
 });
 
 
+/* PUBLIC LAYOUT */
+const PublicLayout = () => (
+  <>
+    <Navbar/>
+    <Outlet/>
+    <Footer/>
+    <ChatbotWidget/>
+  </>
+);
+
+
 const App = () => (
 
 <QueryClientProvider client={queryClient}>
 
 <TooltipProvider>
 
-<Toaster />
-
-<Sonner />
+<Toaster/>
+<Sonner/>
 
 <BrowserRouter>
 
-<Navbar />
-
 <Routes>
 
-{/* PUBLIC ROUTES */}
+{/* ================= PUBLIC ROUTES ================= */}
 
-<Route path="/" element={<Index />} />
+<Route element={<PublicLayout/>}>
 
-<Route path="/about" element={<AboutUs />} />
+<Route path="/" element={<Index/>}/>
 
-<Route path="/solar-services" element={<Services />} />
+<Route path="/about" element={<AboutUs/>}/>
 
-<Route path="/mandap-services" element={<MandapService />} />
+<Route path="/solar-services" element={<Services/>}/>
 
-<Route path="/solar-projects" element={<SolarImages />} />
+<Route path="/mandap-services" element={<MandapService/>}/>
 
-<Route path="/mandap-projects" element={<MandapImages />} />
+<Route path="/solar-projects" element={<SolarImages/>}/>
 
-<Route path="/help" element={<Help />} />
+<Route path="/mandap-projects" element={<MandapImages/>}/>
 
-<Route path="/contact" element={<Contact />} />
+<Route path="/help" element={<Help/>}/>
+
+<Route path="/contact" element={<Contact/>}/>
+
+</Route>
 
 
-{/* ADMIN LOGIN */}
+{/* ================= ADMIN LOGIN ================= */}
 
 <Route
 path="/admin/login"
-element={<AdminLogin />}
+element={<AdminLogin/>}
 />
 
 
-{/* ADMIN PROTECTED ROUTES */}
+{/* ================= ADMIN ROUTES ================= */}
 
 <Route
-path="/admin/dashboard"
+path="/admin"
 element={
 <ProtectedRoute>
-<Dashboard/>
+<AdminLayout/>
 </ProtectedRoute>
 }
-/>
+>
 
-<Route
-path="/admin/leads"
-element={
-<ProtectedRoute>
-<LeadsPage/>
-</ProtectedRoute>
-}
-/>
+<Route index element={<Dashboard/>}/>
 
-<Route
-path="/admin/solar"
-element={
-<ProtectedRoute>
-<SolarPage/>
-</ProtectedRoute>
-}
-/>
+<Route path="dashboard" element={<Dashboard/>}/>
 
-<Route
-path="/admin/mandap"
-element={
-<ProtectedRoute>
-<MandapPage/>
-</ProtectedRoute>
-}
-/>
+<Route path="leads" element={<LeadsPage/>}/>
 
-<Route
-path="/admin/settings"
-element={
-<ProtectedRoute>
-<SettingsPage/>
-</ProtectedRoute>
-}
-/>
+<Route path="solar" element={<SolarPage/>}/>
+
+<Route path="mandap" element={<MandapPage/>}/>
+
+<Route path="settings" element={<SettingsPage/>}/>
+
+</Route>
 
 
-{/* 404 */}
+{/* ================= 404 ================= */}
 
-<Route
-path="*"
-element={<NotFound />}
-/>
+<Route path="*" element={<NotFound/>}/>
 
 </Routes>
-
-<Footer/>
-
-<ChatbotWidget/>
 
 </BrowserRouter>
 
