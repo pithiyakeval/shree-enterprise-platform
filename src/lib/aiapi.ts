@@ -5,43 +5,118 @@ const AI_BASE =
   "https://shree-enterprise-backend-eqpg.onrender.com";
 
 export const aiApi = axios.create({
+
   baseURL: AI_BASE,
-  timeout: 60000, // 60s for LLM responses
+
+  // AI responses take longer
+  timeout: 90000,
+
   headers: {
     "Content-Type": "application/json",
+    Accept:"application/json"
   },
+
+  // Prevent credential CORS issues
+  withCredentials:false
+
 });
 
-export async function askAI(question: string) {
 
-  if (!question || !question.trim()) {
-    return { answer: "Please ask a valid question." };
+// ======================================================
+// AI CHAT FUNCTION
+// ======================================================
+
+export async function askAI(question:string){
+
+  if(!question || !question.trim()){
+
+    return {
+
+      answer:"Please ask a valid question."
+
+    };
+
   }
 
-  try {
+  try{
 
-    const res = await aiApi.post("/api/ai/chat", {
-      question: question.trim(),
+    const res =
+    await aiApi.post("/api/ai/chat",{
+
+      question:question.trim()
+
     });
+
+    if(!res?.data){
+
+      return {
+
+        answer:"AI returned empty response"
+
+      };
+
+    }
 
     return res.data;
 
-  } catch (e: any) {
+  }
+  catch(e:any){
 
     console.log(
+
       "AI ERROR:",
+
       e.response?.data ||
+
       e.message
+
     );
 
-    let msg = "AI temporarily unavailable";
 
-    if (e.code === "ECONNABORTED") {
-      msg = "AI response timeout. Please try again.";
+    // Timeout
+    if(e.code==="ECONNABORTED"){
+
+      return{
+
+        answer:
+        "AI is taking too long. Please try again."
+
+      };
+
     }
 
-    return {
-      answer: msg
+
+    // Render sleeping
+    if(e.message?.includes("Network Error")){
+
+      return{
+
+        answer:
+        "Server waking up. Try again in 10 seconds."
+
+      };
+
+    }
+
+
+    // CORS or server error
+    if(e.response?.status>=500){
+
+      return{
+
+        answer:
+        "AI service temporarily unavailable"
+
+      };
+
+    }
+
+
+    return{
+
+      answer:
+      "AI temporarily unavailable"
+
     };
 
   }

@@ -7,23 +7,31 @@ const BASE =
 
 export const api = axios.create({
 
-  baseURL:`${BASE}/api`,
+  baseURL: `${BASE}/api`,
 
-  timeout:15000,
+  // Render cold start protection
+  timeout: 30000,
 
   headers:{
-    "Content-Type":"application/json"
-  }
+    "Content-Type":"application/json",
+    Accept:"application/json"
+  },
+
+  // IMPORTANT (prevents CORS credential issues)
+  withCredentials:false
 
 });
 
 
+// ==========================================================
 // REQUEST INTERCEPTOR
+// ==========================================================
+
 api.interceptors.request.use(
 
 (config)=>{
 
-  const token=getToken();
+  const token = getToken();
 
   if(token){
 
@@ -41,7 +49,10 @@ api.interceptors.request.use(
 );
 
 
+// ==========================================================
 // RESPONSE INTERCEPTOR
+// ==========================================================
+
 api.interceptors.response.use(
 
 (response)=>response,
@@ -54,12 +65,12 @@ api.interceptors.response.use(
     error.message
   );
 
-  // TOKEN EXPIRED OR INVALID
+
+  // TOKEN EXPIRED
   if(error.response?.status===401){
 
     clearToken();
 
-    // prevent infinite redirect loop
     if(!window.location.pathname.includes("/admin/login")){
 
       window.location.href="/admin/login";
@@ -68,19 +79,30 @@ api.interceptors.response.use(
 
   }
 
-  // SERVER ERROR HANDLING
+
+  // SERVER ERROR
   if(error.response?.status===500){
 
     console.error("Server error");
 
   }
 
-  // NETWORK ERROR
+
+  // NETWORK ERROR (Render sleep / DNS / CORS)
   if(!error.response){
 
     console.error("Network error");
 
   }
+
+
+  // TIMEOUT ERROR
+  if(error.code==="ECONNABORTED"){
+
+    console.error("Request timeout");
+
+  }
+
 
   return Promise.reject(error);
 
