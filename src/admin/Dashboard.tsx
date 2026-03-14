@@ -1,4 +1,3 @@
-import AdminLayout from "./AdminLayout";
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
@@ -231,7 +230,8 @@ const Dashboard = () => {
 
   return (
 
-    <AdminLayout>
+    // <AdminLayout>
+    <>
 
       {/* HEADER */}
 
@@ -512,7 +512,7 @@ const Dashboard = () => {
 
       </div>
 
-    </AdminLayout>
+    </>
 
   );
 };
