@@ -1,7 +1,9 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -9,18 +11,22 @@ import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import ChatbotWidget from "./components/Chatbot/ChatbotWidget";
 
-/* PUBLIC PAGES */
+
+/* ================= PUBLIC PAGES ================= */
+
 import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
-import Services from "./pages/SolarServices";
-import Help from "./pages/Help";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import SolarServices from "./pages/SolarServices";
 import MandapService from "./pages/MandapService";
 import SolarImages from "./pages/SolarImage";
 import MandapImages from "./pages/MandapImage";
+import Help from "./pages/Help";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 
-/* ADMIN */
+
+/* ================= ADMIN ================= */
+
 import AdminLogin from "./admin/AdminLogin";
 import Dashboard from "./admin/Dashboard";
 import LeadsPage from "./admin/LeadsPage";
@@ -29,27 +35,46 @@ import MandapPage from "./admin/MandapPage";
 import SettingsPage from "./admin/SettingsPage";
 import AdminLayout from "./admin/AdminLayout";
 
-/* QUERY CLIENT */
+
+/* ================= QUERY CLIENT ================= */
+
 const queryClient = new QueryClient({
+
   defaultOptions:{
+
     queries:{
       retry:1,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus:false,
+      staleTime:60000
     }
+
   }
+
 });
 
 
-/* PUBLIC LAYOUT */
+/* ================= PUBLIC LAYOUT ================= */
+
 const PublicLayout = () => (
-  <>
-    <Navbar/>
-    <Outlet/>
-    <Footer/>
-    <ChatbotWidget/>
-  </>
+
+<>
+<Navbar/>
+
+<main className="min-h-screen">
+<Outlet/>
+</main>
+
+<Footer/>
+
+<ChatbotWidget/>
+
+</>
+
 );
 
+
+
+/* ================= APP ================= */
 
 const App = () => (
 
@@ -58,6 +83,7 @@ const App = () => (
 <TooltipProvider>
 
 <Toaster/>
+
 <Sonner/>
 
 <BrowserRouter>
@@ -72,11 +98,11 @@ const App = () => (
 
 <Route path="/about" element={<AboutUs/>}/>
 
-<Route path="/solar-services" element={<Services/>}/>
-
-<Route path="/mandap-services" element={<MandapService/>}/>
+<Route path="/solar-services" element={<SolarServices/>}/>
 
 <Route path="/solar-projects" element={<SolarImages/>}/>
+
+<Route path="/mandap-services" element={<MandapService/>}/>
 
 <Route path="/mandap-projects" element={<MandapImages/>}/>
 
@@ -87,6 +113,7 @@ const App = () => (
 </Route>
 
 
+
 {/* ================= ADMIN LOGIN ================= */}
 
 <Route
@@ -95,14 +122,19 @@ element={<AdminLogin/>}
 />
 
 
-{/* ================= ADMIN ROUTES ================= */}
+
+{/* ================= ADMIN PROTECTED ================= */}
 
 <Route
 path="/admin"
 element={
+
 <ProtectedRoute>
+
 <AdminLayout/>
+
 </ProtectedRoute>
+
 }
 >
 
@@ -121,9 +153,11 @@ element={
 </Route>
 
 
+
 {/* ================= 404 ================= */}
 
 <Route path="*" element={<NotFound/>}/>
+
 
 </Routes>
 

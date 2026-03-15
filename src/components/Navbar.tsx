@@ -55,10 +55,13 @@ return()=>window.removeEventListener("scroll",handleScroll)
 const isActive=(path:string)=>location.pathname===path
 
 const isSolarActive =
-location.pathname.includes("solar")
+location.pathname.includes("solar-services") ||
+location.pathname.includes("solar-projects")
 
 const isMandapActive =
-location.pathname.includes("mandap")
+location.pathname.includes("mandap-services") ||
+location.pathname.includes("mandap-projects")
+
 
 return(
 <>
@@ -173,7 +176,7 @@ Solar
 <div className="bg-white rounded-xl shadow-xl border w-56 p-2">
 
 <Link
-to="/solar-projects"
+to="/solar-services"
 className="block px-4 py-2 rounded-lg hover:bg-muted"
 >
 Solar Services
