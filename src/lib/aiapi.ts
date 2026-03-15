@@ -6,17 +6,15 @@ const AI_BASE =
 
 export const aiApi = axios.create({
 
-  baseURL: AI_BASE,
+  baseURL: `${AI_BASE}/api`,
 
-  // AI responses take longer
-  timeout: 90000,
+  timeout:90000,
 
-  headers: {
-    "Content-Type": "application/json",
+  headers:{
+    "Content-Type":"application/json",
     Accept:"application/json"
   },
 
-  // Prevent credential CORS issues
   withCredentials:false
 
 });
@@ -28,12 +26,10 @@ export const aiApi = axios.create({
 
 export async function askAI(question:string){
 
-  if(!question || !question.trim()){
+  if(!question?.trim()){
 
-    return {
-
+    return{
       answer:"Please ask a valid question."
-
     };
 
   }
@@ -41,7 +37,7 @@ export async function askAI(question:string){
   try{
 
     const res =
-    await aiApi.post("/api/ai/chat",{
+    await aiApi.post("/ai/chat",{
 
       question:question.trim()
 
@@ -49,10 +45,8 @@ export async function askAI(question:string){
 
     if(!res?.data){
 
-      return {
-
+      return{
         answer:"AI returned empty response"
-
       };
 
     }
@@ -63,13 +57,9 @@ export async function askAI(question:string){
   catch(e:any){
 
     console.log(
-
       "AI ERROR:",
-
       e.response?.data ||
-
       e.message
-
     );
 
 
@@ -77,46 +67,38 @@ export async function askAI(question:string){
     if(e.code==="ECONNABORTED"){
 
       return{
-
         answer:
         "AI is taking too long. Please try again."
-
       };
 
     }
 
 
-    // Render sleeping
+    // Render cold start
     if(e.message?.includes("Network Error")){
 
       return{
-
         answer:
         "Server waking up. Try again in 10 seconds."
-
       };
 
     }
 
 
-    // CORS or server error
+    // Server error
     if(e.response?.status>=500){
 
       return{
-
         answer:
         "AI service temporarily unavailable"
-
       };
 
     }
 
 
     return{
-
       answer:
       "AI temporarily unavailable"
-
     };
 
   }

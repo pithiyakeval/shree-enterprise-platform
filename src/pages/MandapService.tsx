@@ -43,7 +43,7 @@ content="mandap decoration Junagadh, wedding mandap Mangrol, event decoration Ju
 
 <link
 rel="canonical"
-href="https://yourdomain.com/mandap-services"
+href="https://shreeenterprise.live/mandap-services"
 />
 
 {/* OpenGraph */}
@@ -62,7 +62,7 @@ content="Beautiful wedding mandap decoration and event stage setup services in J
 
 <meta
 property="og:url"
-content="https://yourdomain.com/mandap-services"
+content="https://shreeenterprise.live/mandap-services"
 />
 
 <meta

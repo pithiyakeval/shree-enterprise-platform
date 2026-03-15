@@ -1,24 +1,36 @@
 // src/config/api.ts
 
-// Use same env as axios api.ts
 export const API_BASE =
 import.meta.env.VITE_API_BASE ||
 "https://shree-enterprise-backend-eqpg.onrender.com";
 
 
-// POST helper
+function normalizeUrl(url:string){
+
+if(url.startsWith("/api")){
+return url;
+}
+
+return `/api${url}`;
+
+}
+
+
+// POST
 export async function apiPost<T>(
 url:string,
 body:any,
 token?:string
 ):Promise<T>{
 
-const res=await fetch(`${API_BASE}/api${url}`,{
+const res = await fetch(
 
+`${API_BASE}${normalizeUrl(url)}`,
+
+{
 method:"POST",
 
 headers:{
-
 "Content-Type":"application/json",
 
 ...(token && {
@@ -39,7 +51,10 @@ try{
 
 const data=await res.json();
 
-msg=data?.detail || data?.error || msg;
+msg=
+data?.detail ||
+data?.error ||
+msg;
 
 }catch{}
 
@@ -52,21 +67,21 @@ return res.json();
 }
 
 
-
-// GET helper
+// GET
 export async function apiGet<T>(
 url:string,
 token?:string
 ):Promise<T>{
 
-const res=await fetch(`${API_BASE}/api${url}`,{
+const res = await fetch(
 
+`${API_BASE}${normalizeUrl(url)}`,
+
+{
 headers:{
-
 ...(token && {
 Authorization:`Bearer ${token}`
 })
-
 }
 
 });
@@ -79,7 +94,10 @@ try{
 
 const data=await res.json();
 
-msg=data?.detail || data?.error || msg;
+msg=
+data?.detail ||
+data?.error ||
+msg;
 
 }catch{}
 

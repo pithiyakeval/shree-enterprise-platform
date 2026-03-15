@@ -144,7 +144,7 @@ content="solar panel FAQ Gujarat, solar subsidy Junagadh, solar installation cos
 
 <link
 rel="canonical"
-href="https://yourdomain.com/help"
+href="https://shreeenterprise.live/help"
 />
 
 {/* OpenGraph */}
@@ -160,7 +160,7 @@ content="Find answers about solar installation, government subsidy and mandap de
 />
 
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://yourdomain.com/help" />
+<meta property="og:url" content="https://shreeenterprise.live/help" />
 <meta property="og:image" content="/preview.jpg" />
 
 {/* Twitter */}

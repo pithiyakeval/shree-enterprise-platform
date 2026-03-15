@@ -74,7 +74,7 @@ where_from:"home"
 
 try{
 
-await apiPost("/api/lead/submit",payload)
+await apiPost("/lead/submit",payload)
 
 toast.success("Thank you! We'll call you back within 30 minutes.")
 

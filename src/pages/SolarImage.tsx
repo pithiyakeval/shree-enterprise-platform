@@ -128,7 +128,7 @@ name="description"
 content="Explore rooftop solar installations completed by Shree Enterprise across Junagadh, Mangrol and Talala."
 />
 
-<link rel="canonical" href="https://yourdomain.com/solar-projects"/>
+<link rel="canonical" href="https://shreeenterprise.live/solar-projects"/>
 
 </Helmet>
 

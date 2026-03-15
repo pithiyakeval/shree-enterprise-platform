@@ -119,7 +119,7 @@ Royal Wedding Decoration – ₹90,000+
 
     try {
 
-      const data = await apiPost("/api/ai/chat", {
+      const data = await apiPost("/ai/chat", {
         question
       });
 
@@ -185,7 +185,7 @@ Royal Wedding Decoration – ₹90,000+
 
     try {
 
-      const data = await apiPost("/api/ai/chat", {
+      const data = await apiPost("/ai/chat", {
         question: userText
       });
 

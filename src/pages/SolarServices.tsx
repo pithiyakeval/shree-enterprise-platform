@@ -40,7 +40,7 @@ const SolarServices = () => {
 
   <link
   rel="canonical"
-  href="https://yourdomain.com/solar-services"
+  href="https://shreeenterprise.live/solar-services"
   />
 
   {/* OpenGraph */}
@@ -54,7 +54,7 @@ const SolarServices = () => {
 
   <meta property="og:type" content="website" />
 
-  <meta property="og:url" content="https://yourdomain.com/solar-services" />
+  <meta property="og:url" content="https://shreeenterprise.live//solar-services" />
 
   <meta property="og:image" content="/solar-preview.jpg" />
 

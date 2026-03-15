@@ -65,7 +65,7 @@ where_from:"contact"
 
 try{
 
-await apiPost("/api/lead/submit",payload)
+await apiPost("/lead/submit",payload)
 
 toast.success("Message sent successfully!",{
 description:"We'll contact you within 30 minutes."
@@ -114,7 +114,7 @@ content="solar installation Junagadh contact, mandap decoration Junagadh contact
 
 <link
 rel="canonical"
-href="https://yourdomain.com/contact"
+href="https://shreeenterprise.live/contact"
 />
 
 {/* OpenGraph */}
@@ -128,7 +128,7 @@ content="Get in touch with Shree Enterprise for solar panel installation and man
 
 <meta property="og:type" content="website" />
 
-<meta property="og:url" content="https://yourdomain.com/contact" />
+<meta property="og:url" content="https://shreeenterprise.live/contact" />
 
 <meta property="og:image" content="/preview.jpg" />
 
@@ -165,7 +165,7 @@ content="/preview.jpg"
 "@context": "https://schema.org",
 "@type": "LocalBusiness",
 "name": "Shree Enterprise",
-"image": "https://yourdomain.com/logo.png",
+"image": "https://shreeenterprise.live/logo.png",
 "telephone": "+91-9898812423",
 "email": "jagdishbhai.pithiya@gmail.com",
 "address": {

@@ -68,7 +68,7 @@ return(
 name="description"
 content="Wedding mandap decoration, engagement stage design, haldi ceremony setup and garba night decoration services by Shree Enterprise in Junagadh."
 />
-<link rel="canonical" href="https://yourdomain.com/mandap-projects"/>
+<link rel="canonical" href="https://shreeenterprise.live//mandap-projects"/>
 </Helmet>
 
 <div className="relative min-h-screen overflow-hidden">

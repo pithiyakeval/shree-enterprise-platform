@@ -44,7 +44,7 @@ const Index = () => {
 
         {/* CANONICAL URL */}
 
-        <link rel="canonical" href="https://yourdomain.com/" />
+        <link rel="canonical" href="https://shreeenterprise.live/" />
 
         {/* OPEN GRAPH (WhatsApp / Facebook Preview) */}
 
@@ -57,7 +57,7 @@ const Index = () => {
 
         <meta property="og:type" content="website" />
 
-        <meta property="og:url" content="https://yourdomain.com/" />
+        <meta property="og:url" content="https://shreeenterprise.live/" />
 
         <meta property="og:image" content="/preview.jpg" />
 
@@ -94,7 +94,7 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "Shree Enterprise",
-            "image": "https://yourdomain.com/logo.png",
+            "image": "https://shreeenterprise.live/logo.png",
 
             "address": {
               "@type": "PostalAddress",

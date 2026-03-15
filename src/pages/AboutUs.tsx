@@ -48,7 +48,7 @@ const AboutUs = () => {
 
         <link
           rel="canonical"
-          href="https://yourdomain.com/about"
+          href="https://shreeenterprise.live/about"
         />
 
         {/* OpenGraph */}
@@ -65,7 +65,7 @@ const AboutUs = () => {
 
         <meta
           property="og:url"
-          content="https://yourdomain.com/about"
+          content="https://shreeenterprise.live//about"
         />
 
         <meta
@@ -108,7 +108,7 @@ const AboutUs = () => {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "Shree Enterprise",
-            "image": "https://yourdomain.com/logo.png",
+            "image": "https://shreeenterprise.live//logo.png",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Main Chowk, Nagichana",
