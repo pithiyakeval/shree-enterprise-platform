@@ -10,7 +10,7 @@ export const api = axios.create({
   baseURL: `${BASE}/api`,
 
   // Render cold start protection
-  timeout: 30000,
+  timeout: 90000,
 
   headers:{
     "Content-Type":"application/json",

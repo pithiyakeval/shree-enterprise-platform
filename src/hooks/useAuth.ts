@@ -1,113 +1,219 @@
 import { useState, useEffect } from "react";
 import api from "@/lib/api";
-import { setToken, clearToken, getToken } from "@/lib/auth";
+
+import {
+setToken,
+clearToken,
+getToken
+} from "@/lib/auth";
+
 
 export const useAuth = () => {
 
-  const [user, setUser] = useState<any>(null);
-  const [loading,setLoading]=useState(true);
+const [user,setUser]=useState<any>(null);
 
-  // AUTO LOGIN FROM TOKEN
-  useEffect(()=>{
-
-    const token=getToken();
-
-    if(token){
-
-      setUser({
-        email:"admin"
-      });
-
-    } else{
-      clearToken();
-    }
-
-    setLoading(false);
-
-  },[]);
+const [loading,setLoading]=useState(true);
 
 
-  // LOGIN
-  const login = async (
-    email:string,
-    password:string
-  )=>{
+/* ================= AUTO LOGIN ================= */
 
-    try{
+useEffect(()=>{
 
-      clearToken();
+const token=getToken();
 
-      const res=
-      await api.post("/admin/login",{
+if(token){
 
-        email,
-        password
+setUser({
 
-      });
+email:"admin"
 
-      const token=
-      res.data?.access_token;
+});
 
-      if(!token){
+}
 
-        return false;
+setLoading(false);
 
-      }
-
-      setToken(token);
-
-      setUser({
-
-        email
-
-      });
-
-      return true;
-
-    }catch(err:any){
-
-      console.log(
-
-        "LOGIN ERROR:",
-
-        err.response?.data ||
-        err.message
-
-      );
-
-      return false;
-
-    }
-
-  };
+},[]);
 
 
-  // LOGOUT
-  const logout=()=>{
 
-    clearToken();
+/* ================= RETRY HELPER ================= */
 
-    setUser(null);
-
-    window.location.href="/admin/login";
-
-  };
+const wait=(ms:number)=>
+new Promise(r=>setTimeout(r,ms));
 
 
-  return{
+const retryLogin=async(
 
-    user,
+email:string,
+password:string
 
-    login,
+)=>{
 
-    logout,
+for(let i=0;i<2;i++){
 
-    loading,
+try{
 
-    isAuthenticated:!!user
+const res=
+await api.post(
 
-    
+"/admin/login",
 
-  };
+{
+email,
+password
+}
+
+);
+
+return res;
+
+}catch(e:any){
+
+// Cold start retry
+if(!e.response){
+
+await wait(5000);
+
+continue;
+
+}
+
+throw e;
+
+}
+
+}
+
+return null;
+
+};
+
+
+
+/* ================= LOGIN ================= */
+
+const login=async(
+
+email:string,
+password:string
+
+)=>{
+
+try{
+
+// if already logged in skip login
+const existingToken=getToken();
+
+if(existingToken){
+
+setUser({email});
+
+return true;
+
+}
+
+
+// clear old
+clearToken();
+
+
+let res=
+await retryLogin(
+
+email,
+password
+
+);
+
+
+if(!res){
+
+return false;
+
+}
+
+
+const token=
+res.data?.access_token;
+
+
+if(!token){
+
+return false;
+
+}
+
+
+setToken(token);
+
+setUser({
+
+email
+
+});
+
+return true;
+
+
+}catch(err:any){
+
+console.log(
+
+"LOGIN ERROR:",
+
+err.response?.data ||
+err.message
+
+);
+
+
+// Cold start fallback message
+if(err.code==="ECONNABORTED"){
+
+console.log(
+
+"Server waking up"
+
+);
+
+}
+
+return false;
+
+}
+
+};
+
+
+
+/* ================= LOGOUT ================= */
+
+const logout=()=>{
+
+clearToken();
+
+setUser(null);
+
+window.location.href=
+"/admin/login";
+
+};
+
+
+
+return{
+
+user,
+
+login,
+
+logout,
+
+loading,
+
+isAuthenticated:!!user
+
+};
 
 };
