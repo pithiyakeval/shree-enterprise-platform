@@ -4,7 +4,15 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import {
+BrowserRouter,
+Routes,
+Route,
+Outlet,
+useLocation
+} from "react-router-dom";
+
+import { useEffect } from "react";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -40,17 +48,46 @@ import AdminLayout from "./admin/AdminLayout";
 
 const queryClient = new QueryClient({
 
-  defaultOptions:{
+defaultOptions:{
 
-    queries:{
-      retry:1,
-      refetchOnWindowFocus:false,
-      staleTime:60000
-    }
+queries:{
+retry:1,
+refetchOnWindowFocus:false,
+staleTime:60000
+}
 
-  }
+}
 
 });
+
+
+/* ================= ANALYTICS TRACKER ================= */
+
+const AnalyticsTracker = () => {
+
+const location = useLocation();
+
+useEffect(()=>{
+
+const GA_ID = import.meta.env.VITE_GA_ID;
+
+if(!GA_ID || !(window as any).gtag) return;
+
+(window as any).gtag(
+
+'config',
+GA_ID,
+{
+page_path:location.pathname
+}
+
+);
+
+},[location]);
+
+return null;
+
+};
 
 
 /* ================= PUBLIC LAYOUT ================= */
@@ -67,11 +104,9 @@ const PublicLayout = () => (
 <Footer/>
 
 <ChatbotWidget/>
-
 </>
 
 );
-
 
 
 /* ================= APP ================= */
@@ -87,6 +122,9 @@ const App = () => (
 <Sonner/>
 
 <BrowserRouter>
+
+{/* ROUTE TRACKING */}
+<AnalyticsTracker/>
 
 <Routes>
 
