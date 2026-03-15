@@ -1,144 +1,194 @@
-import { useEffect, useState } from "react";
-import AdminLayout from "./AdminLayout";
+import { useEffect,useState } from "react";
 import LeadsTable from "./LeadsTable";
 import api from "@/lib/api";
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Users } from "lucide-react";
+
+import {
+RefreshCw,
+Users,
+Download
+} from "lucide-react";
+
 
 const LeadsPage = () => {
 
-  const [leads,setLeads]=useState<any[]>([]);
-  const [loading,setLoading]=useState(true);
-  const [error,setError]=useState("");
-
-  const loadLeads=async()=>{
-
-    try{
-
-      setLoading(true);
-
-      setError("");
-
-      const res=await api.get("/admin/leads");
-
-      setLeads(res.data || []);
-
-    }
-    catch(err:any){
-
-      console.log(
-        "LEADS ERROR:",
-        err.response?.data ||
-        err.message
-      );
-
-      setError(
-        "Failed to load leads"
-      );
-
-    }
-    finally{
-
-      setLoading(false);
-
-    }
-
-  };
-
-  useEffect(()=>{
-
-    loadLeads();
-
-  },[]);
-
-  return (
-
-    <AdminLayout>
-
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-3">
-
-        <div>
-
-          <h1 className="text-4xl font-bold text-gray-900 flex items-center gap-2">
-
-            <Users className="w-8 h-8 text-blue-600"/>
-
-            All Leads
-
-          </h1>
-
-          <p className="text-gray-500 mt-1">
-
-            Manage and track all customer inquiries
-
-          </p>
-
-        </div>
-
-        <Button
-          onClick={loadLeads}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700"
-        >
-
-          <RefreshCw className="w-4 h-4"/>
-
-          Refresh
-
-        </Button>
-
-      </div>
+const [leads,setLeads]=useState<any[]>([]);
+const [loading,setLoading]=useState(true);
+const [error,setError]=useState("");
 
 
-      <Card className="p-6 shadow-xl bg-white border border-gray-200 rounded-2xl">
+const loadLeads=async()=>{
 
-        <div className="flex justify-between items-center mb-4">
+try{
 
-          <h2 className="text-lg font-semibold text-gray-800">
+setLoading(true);
+setError("");
 
-            Leads List
+const res=await api.get("/admin/leads");
 
-          </h2>
+setLeads(res.data || []);
 
-          <span className="text-sm text-gray-400">
+}
+catch(err:any){
 
-            Total: {leads.length}
+console.log(
+"LEADS ERROR:",
+err.response?.data ||
+err.message
+);
 
-          </span>
+setError("Failed to load leads");
 
-        </div>
+}
+finally{
 
-        {loading && (
+setLoading(false);
 
-          <div className="flex justify-center py-16">
+}
 
-            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"/>
+};
 
-          </div>
 
-        )}
+useEffect(()=>{
 
-        {!loading && error && (
+loadLeads();
 
-          <div className="text-center py-10 text-red-500">
+},[]);
 
-            {error}
 
-          </div>
 
-        )}
+/* EXPORT */
 
-        {!loading && !error && (
+const exportLeads=()=>{
 
-          <LeadsTable leads={leads} />
+const csv=
+"Name,Phone,City,Service\n"+
+leads.map(
+(l:any)=>
+`${l.name},${l.phone},${l.city},${l.service}`
+).join("\n");
 
-        )}
+const blob=new Blob([csv]);
 
-      </Card>
+const url=
+window.URL.createObjectURL(blob);
 
-    </AdminLayout>
+const a=document.createElement("a");
 
-  );
+a.href=url;
+
+a.download="leads.csv";
+
+a.click();
+
+};
+
+
+
+return(
+
+<div className="space-y-6">
+
+
+{/* HEADER */}
+
+<div className="flex flex-col md:flex-row justify-between gap-4">
+
+<div>
+
+<h1 className="text-3xl font-bold flex items-center gap-2">
+
+<Users className="text-blue-600"/>
+
+All Leads
+
+</h1>
+
+<p className="text-gray-500">
+Manage customer inquiries
+</p>
+
+</div>
+
+
+<div className="flex gap-2">
+
+<Button
+onClick={loadLeads}
+className="flex items-center gap-2"
+>
+
+<RefreshCw size={16}/>
+
+Refresh
+
+</Button>
+
+
+<Button
+onClick={exportLeads}
+variant="secondary"
+className="flex items-center gap-2"
+>
+
+<Download size={16}/>
+
+Export
+
+</Button>
+
+</div>
+
+</div>
+
+
+
+{/* TABLE */}
+
+<Card className="p-6 shadow">
+
+{loading?
+
+<div className="flex justify-center py-16">
+
+<div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"/>
+
+</div>
+
+:
+
+error?
+
+<div className="text-center text-red-500 py-10">
+
+{error}
+
+</div>
+
+:
+
+leads.length===0?
+
+<div className="text-center text-gray-400 py-12">
+
+No leads found
+
+</div>
+
+:
+
+<LeadsTable leads={leads}/>
+
+}
+
+</Card>
+
+
+</div>
+
+);
 
 };
 

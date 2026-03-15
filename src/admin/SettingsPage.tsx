@@ -1,340 +1,397 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "./AdminLayout";
 import { api } from "@/lib/api";
 import { Card } from "@/components/ui/card";
 import { clearToken } from "@/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+
 import {
-  Users,
-  Plus,
-  KeyRound,
-  Shield,
-  Bell,
-  Database,
-  Download
+Users,
+Plus,
+KeyRound,
+Shield,
+Bell,
+Database,
+Download
 } from "lucide-react";
 
 const SettingsPage = () => {
 
-  const [admins, setAdmins] = useState<any[]>([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const [admins,setAdmins]=useState<any[]>([]);
+const [email,setEmail]=useState("");
+const [password,setPassword]=useState("");
 
-  const [ownerEmails, setOwnerEmails] = useState("");
-  const [emailAlerts, setEmailAlerts] = useState(true);
+const [ownerEmails,setOwnerEmails]=useState("");
+const [emailAlerts,setEmailAlerts]=useState(true);
 
-  const [newPassword, setNewPassword] = useState("");
-  const navigate = useNavigate();
+const [newPassword,setNewPassword]=useState("");
 
-  const loadAdmins = async () => {
-    const res: any = await api.get("/admin/admins");
-    setAdmins(res.data || []);
-  };
+const navigate=useNavigate();
 
-  useEffect(() => {
-    loadAdmins();
-  }, []);
 
-  const registerAdmin = async () => {
-    if (!email || !password) return alert("Enter email & password");
+const loadAdmins=async()=>{
 
-    await api.post("/admin/register",{ email,password })
+const res:any=await api.get("/admin/admins");
 
-    setEmail("");
-    setPassword("");
+setAdmins(res.data || []);
 
-    loadAdmins();
-  };
+};
 
-  const resetPassword = async (id: number) => {
-    const pass = prompt("Enter new password");
 
-    if (!pass) return;
+useEffect(()=>{
 
-    await api.post(`/admin/reset-password/${id}`, {
-      password: pass,
-    });
+loadAdmins();
 
-    alert("Password updated");
-  };
+},[]);
 
-  const changePassword = async () => {
-    if (!newPassword) return alert("Enter new password");
 
-    const adminId = 1;
 
-    await api.post(`/admin/reset-password/${adminId}`, {
-      password: newPassword,
-    });
+const registerAdmin=async()=>{
 
-    setNewPassword("");
+if(!email || !password)
+return alert("Enter email & password");
 
-    alert("Password updated");
-  };
+await api.post("/admin/register",{
 
-  const logoutAll = () => {
-    clearToken();
-      navigate("/admin/login");
-  };
+email,
+password
 
-  const exportLeads = async () => {
-    const res = await api.get("/admin/leads").catch(()=>({data:[]}));
+});
 
-    const leads = res.data;
+setEmail("");
+setPassword("");
 
-    const csv =
-      "Name,Phone,City,Service\n" +
-      leads.map(
-        (l: any) =>
-          `${l.name},${l.phone},${l.city},${l.service}`
-      ).join("\n");
+loadAdmins();
 
-    const blob = new Blob([csv], { type: "text/csv" });
+};
 
-    const url = window.URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "leads.csv";
-    a.click();
-  };
 
-  return (
-    <AdminLayout>
+const resetPassword=async(id:number)=>{
 
-      {/* Header */}
-      <div className="mb-8">
+const pass=prompt("Enter new password");
 
-        <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-2">
-          <Users className="w-7 h-7 text-blue-600"/>
-          Admin Settings
-        </h1>
+if(!pass) return;
 
-        <p className="text-gray-500 mt-1 text-sm md:text-base">
-          Manage administrators and system configuration
-        </p>
+await api.post(`/admin/reset-password/${id}`,{
 
-      </div>
+password:pass
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+});
 
-        {/* ADMIN MANAGEMENT */}
-        <Card className="p-6">
+alert("Password updated");
 
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Plus className="w-5 h-5"/>
-            Admin Management
-          </h2>
+};
 
-          {/* Create Admin */}
-          <div className="flex flex-col md:flex-row gap-3 mb-5">
 
-            <input
-              placeholder="Admin email"
-              className="border rounded-lg p-2 flex-1"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
 
-            <input
-              placeholder="Password"
-              type="password"
-              className="border rounded-lg p-2 flex-1"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+const changePassword=async()=>{
 
-            <Button onClick={registerAdmin}>
-              Create
-            </Button>
+if(!newPassword)
+return alert("Enter new password");
 
-          </div>
+const adminId=1;
 
-          {/* DESKTOP TABLE */}
-          <div className="hidden md:block">
+await api.post(`/admin/reset-password/${adminId}`,{
 
-            <table className="w-full text-sm">
+password:newPassword
 
-              <thead className="border-b">
-                <tr>
-                  <th className="p-2 text-left">ID</th>
-                  <th className="p-2 text-left">Email</th>
-                  <th className="p-2 text-left">Created</th>
-                  <th className="p-2 text-center">Action</th>
-                </tr>
-              </thead>
+});
 
-              <tbody>
+setNewPassword("");
 
-                {admins.map((a) => (
+alert("Password updated");
 
-                  <tr key={a.id} className="border-b">
+};
 
-                    <td className="p-2">{a.id}</td>
 
-                    <td className="p-2">{a.email}</td>
 
-                    <td className="p-2">
-                      {new Date(a.created_at).toLocaleDateString()}
-                    </td>
+const logoutAll=()=>{
 
-                    <td className="p-2 text-center">
+clearToken();
 
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        onClick={() => resetPassword(a.id)}
-                        className="flex items-center gap-1"
-                      >
-                        <KeyRound className="w-4 h-4"/>
-                        Reset
-                      </Button>
+navigate("/admin/login");
 
-                    </td>
+};
 
-                  </tr>
 
-                ))}
 
-              </tbody>
+const exportLeads=async()=>{
 
-            </table>
+const res=await api
+.get("/admin/leads")
+.catch(()=>({data:[]}));
 
-          </div>
+const leads=res.data;
 
-          {/* MOBILE CARDS */}
-          <div className="md:hidden space-y-3">
+const csv=
+"Name,Phone,City,Service\n"+
+leads.map((l:any)=>
+`${l.name},${l.phone},${l.city},${l.service}`
+).join("\n");
 
-            {admins.map((a) => (
+const blob=new Blob([csv]);
 
-              <div
-                key={a.id}
-                className="border rounded-xl p-4 bg-gray-50"
-              >
+const url=window.URL.createObjectURL(blob);
 
-                <p className="font-semibold">
-                  {a.email}
-                </p>
+const a=document.createElement("a");
 
-                <p className="text-sm text-gray-500">
-                  ID: {a.id}
-                </p>
+a.href=url;
 
-                <p className="text-sm text-gray-500 mb-3">
-                  Created: {new Date(a.created_at).toLocaleDateString()}
-                </p>
+a.download="leads.csv";
 
-                <Button
-                  size="sm"
-                  onClick={() => resetPassword(a.id)}
-                  className="w-full flex items-center gap-2 justify-center"
-                >
-                  <KeyRound className="w-4 h-4"/>
-                  Reset Password
-                </Button>
+a.click();
 
-              </div>
+};
 
-            ))}
 
-          </div>
 
-        </Card>
+return(
 
-        {/* SECURITY */}
-        <Card className="p-6">
+<div className="space-y-6">
 
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5"/>
-            Security
-          </h2>
 
-          <input
-            placeholder="New password"
-            type="password"
-            className="border rounded-lg p-2 w-full mb-3"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
+{/* HEADER */}
 
-          <div className="flex flex-col md:flex-row gap-3">
+<div>
 
-            <Button onClick={changePassword}>
-              Update Password
-            </Button>
+<h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
 
-            <Button
-              variant="destructive"
-              onClick={logoutAll}
-            >
-              Logout All
-            </Button>
+<Users className="w-7 h-7 text-blue-600"/>
 
-          </div>
+Admin Settings
 
-        </Card>
+</h1>
 
-        {/* NOTIFICATIONS */}
-        <Card className="p-6">
+<p className="text-gray-500">
 
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Bell className="w-5 h-5"/>
-            Notifications
-          </h2>
+Manage administrators and system configuration
 
-          <label className="flex items-center gap-2 mb-3">
+</p>
 
-            <input
-              type="checkbox"
-              checked={emailAlerts}
-              onChange={() => setEmailAlerts(!emailAlerts)}
-            />
+</div>
 
-            Email alerts for new leads
 
-          </label>
 
-          <input
-            placeholder="Owner emails (comma separated)"
-            className="border rounded-lg p-2 w-full"
-            value={ownerEmails}
-            onChange={(e) => setOwnerEmails(e.target.value)}
-          />
+{/* GRID */}
 
-        </Card>
+<div className="grid lg:grid-cols-2 gap-6">
 
-        {/* SYSTEM TOOLS */}
-        <Card className="p-6">
 
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Database className="w-5 h-5"/>
-            System Tools
-          </h2>
+{/* ADMIN MANAGEMENT */}
 
-          <div className="flex flex-col md:flex-row gap-3">
+<Card className="p-6 shadow-sm">
 
-            <Button
-              onClick={exportLeads}
-              className="flex items-center gap-2"
-            >
-              <Download className="w-4 h-4"/>
-              Export Leads
-            </Button>
+<h2 className="font-semibold mb-4 flex items-center gap-2">
 
-            <Button variant="secondary">
-              Backup Database
-            </Button>
+<Plus className="w-5 h-5"/>
 
-          </div>
+Admin Management
 
-        </Card>
+</h2>
 
-      </div>
 
-    </AdminLayout>
-  );
+<div className="flex flex-col md:flex-row gap-3 mb-5">
+
+<input
+placeholder="Admin email"
+className="border rounded-lg p-2 flex-1"
+value={email}
+onChange={(e)=>setEmail(e.target.value)}
+/>
+
+
+<input
+placeholder="Password"
+type="password"
+className="border rounded-lg p-2 flex-1"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+/>
+
+
+<Button onClick={registerAdmin}>
+
+Create
+
+</Button>
+
+</div>
+
+
+<div className="space-y-2">
+
+{admins.map((a)=>(
+
+<div
+key={a.id}
+className="flex items-center justify-between border rounded-lg p-3 bg-gray-50"
+>
+
+<div>
+
+<p className="font-medium">
+{a.email}
+</p>
+
+<p className="text-xs text-gray-500">
+ID {a.id} • {new Date(a.created_at).toLocaleDateString()}
+</p>
+
+</div>
+
+
+<Button
+size="sm"
+variant="secondary"
+onClick={()=>resetPassword(a.id)}
+className="flex items-center gap-1"
+>
+
+<KeyRound className="w-4 h-4"/>
+
+Reset
+
+</Button>
+
+</div>
+
+))}
+
+</div>
+
+</Card>
+
+
+
+{/* SECURITY */}
+
+<Card className="p-6 shadow-sm">
+
+<h2 className="font-semibold mb-4 flex items-center gap-2">
+
+<Shield className="w-5 h-5"/>
+
+Security
+
+</h2>
+
+
+<input
+placeholder="New password"
+type="password"
+className="border rounded-lg p-2 w-full mb-3"
+value={newPassword}
+onChange={(e)=>setNewPassword(e.target.value)}
+/>
+
+
+<div className="flex gap-3">
+
+<Button onClick={changePassword}>
+
+Update Password
+
+</Button>
+
+
+<Button
+variant="destructive"
+onClick={logoutAll}
+>
+
+Logout All
+
+</Button>
+
+</div>
+
+</Card>
+
+
+
+{/* NOTIFICATIONS */}
+
+<Card className="p-6 shadow-sm">
+
+<h2 className="font-semibold mb-4 flex items-center gap-2">
+
+<Bell className="w-5 h-5"/>
+
+Notifications
+
+</h2>
+
+
+<label className="flex items-center gap-2 mb-3">
+
+<input
+type="checkbox"
+checked={emailAlerts}
+onChange={()=>setEmailAlerts(!emailAlerts)}
+/>
+
+Email alerts for new leads
+
+</label>
+
+
+<input
+placeholder="Owner emails"
+className="border rounded-lg p-2 w-full"
+value={ownerEmails}
+onChange={(e)=>setOwnerEmails(e.target.value)}
+/>
+
+</Card>
+
+
+
+{/* SYSTEM */}
+
+<Card className="p-6 shadow-sm">
+
+<h2 className="font-semibold mb-4 flex items-center gap-2">
+
+<Database className="w-5 h-5"/>
+
+System Tools
+
+</h2>
+
+
+<div className="flex gap-3">
+
+<Button
+onClick={exportLeads}
+className="flex items-center gap-2"
+>
+
+<Download className="w-4 h-4"/>
+
+Export Leads
+
+</Button>
+
+
+<Button variant="secondary">
+
+Backup Database
+
+</Button>
+
+</div>
+
+</Card>
+
+
+</div>
+
+
+</div>
+
+);
+
 };
 
 export default SettingsPage;

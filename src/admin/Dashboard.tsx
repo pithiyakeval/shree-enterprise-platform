@@ -5,516 +5,547 @@ import LeadsTable from "./LeadsTable";
 import CountUp from "react-countup";
 
 import {
-  Sun,
-  Flower2,
-  Users,
-  Layers,
-  RefreshCcw,
-  Download
+Sun,
+Flower2,
+Users,
+Layers,
+RefreshCcw,
+Download,
+TrendingUp,
+Calendar
 } from "lucide-react";
 
 import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  Legend
+ResponsiveContainer,
+LineChart,
+Line,
+XAxis,
+YAxis,
+Tooltip,
+PieChart,
+Pie,
+Cell,
+BarChart,
+Bar,
+Legend
 } from "recharts";
 
 const Dashboard = () => {
 
-  const [leads, setLeads] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all");
+const [leads,setLeads]=useState<any[]>([]);
+const [loading,setLoading]=useState(true);
 
-  /* ---------------------------------- */
-  /* FETCH LEADS */
-  /* ---------------------------------- */
+const loadLeads=()=>{
 
-  const loadLeads = () => {
+setLoading(true);
 
-    setLoading(true);
+api.get("/admin/leads")
 
-    api
-      .get("/admin/leads")
-      .then((res: any) => {
+.then((res:any)=>{
 
-        setLeads(res.data || []);
+setLeads(res.data || []);
 
-      })
-      .finally(() => setLoading(false));
-  };
+})
 
-  useEffect(() => {
+.finally(()=>setLoading(false));
 
-    loadLeads();
+};
 
-    /* REAL TIME AUTO REFRESH */
+useEffect(()=>{
 
-    const interval = setInterval(() => {
+loadLeads();
 
-      loadLeads();
+const interval=setInterval(()=>{
 
-    }, 30000); // 30 seconds
+loadLeads();
 
-    return () => clearInterval(interval);
+},30000);
 
-  }, []);
+return()=>clearInterval(interval);
 
-  /* ---------------------------------- */
-  /* STATS */
-  /* ---------------------------------- */
+},[]);
 
-  const stats = {
 
-    total: leads.length,
 
-    solar: leads.filter(
-      (l) => l.service?.toLowerCase() === "solar"
-    ).length,
+/* STATS */
 
-    mandap: leads.filter(
-      (l) => l.service?.toLowerCase() === "mandap"
-    ).length,
+const today=new Date().toDateString();
 
-    both: leads.filter(
-      (l) => l.service?.toLowerCase() === "both"
-    ).length,
+const todayLeads=leads.filter(
+l=> new Date(l.created_at).toDateString()===today
+).length;
 
-  };
+const stats={
 
-  const cards = [
-    {
-      label: "Total Leads",
-      value: stats.total,
-      icon: Users,
-      gradient: "from-blue-500 to-blue-700",
-    },
-    {
-      label: "Solar Leads",
-      value: stats.solar,
-      icon: Sun,
-      gradient: "from-yellow-400 to-yellow-600",
-    },
-    {
-      label: "Mandap Leads",
-      value: stats.mandap,
-      icon: Flower2,
-      gradient: "from-pink-500 to-pink-600",
-    },
-    {
-      label: "Both Services",
-      value: stats.both,
-      icon: Layers,
-      gradient: "from-purple-500 to-purple-700",
-    },
-  ];
+total:leads.length,
 
-  /* ---------------------------------- */
-  /* CHART DATA FROM REAL LEADS */
-  /* ---------------------------------- */
+solar:leads.filter(
+l=>l.service?.toLowerCase()==="solar"
+).length,
 
-  /* SERVICE DISTRIBUTION */
+mandap:leads.filter(
+l=>l.service?.toLowerCase()==="mandap"
+).length,
 
-  const serviceData = [
-    { name: "Solar", value: stats.solar },
-    { name: "Mandap", value: stats.mandap },
-    { name: "Both", value: stats.both },
-  ];
+both:leads.filter(
+l=>l.service?.toLowerCase()==="both"
+).length
 
-  const serviceColors = ["#facc15", "#ec4899", "#8b5cf6"];
+};
 
-  /* CITY DATA */
 
-  const cityMap: any = {};
+const conversion=
+stats.total===0
+?0
+:Math.round((stats.solar+stats.mandap)/stats.total*100);
 
-  leads.forEach((l) => {
 
-    if (!cityMap[l.city]) cityMap[l.city] = 0;
+const cards=[
 
-    cityMap[l.city]++;
+{
+label:"Total Leads",
+value:stats.total,
+icon:Users,
+gradient:"from-blue-500 to-blue-700"
+},
 
-  });
+{
+label:"Today Leads",
+value:todayLeads,
+icon:Calendar,
+gradient:"from-indigo-500 to-indigo-700"
+},
 
-  const cityData = Object.keys(cityMap).map((city) => ({
-    city,
-    leads: cityMap[city],
-  }));
+{
+label:"Solar Leads",
+value:stats.solar,
+icon:Sun,
+gradient:"from-yellow-400 to-yellow-600"
+},
 
-  /* STATUS DATA */
+{
+label:"Mandap Leads",
+value:stats.mandap,
+icon:Flower2,
+gradient:"from-pink-500 to-pink-600"
+},
 
-  const done = leads.filter(
-    (l) => l.status === "done"
-  ).length;
+{
+label:"Both Services",
+value:stats.both,
+icon:Layers,
+gradient:"from-purple-500 to-purple-700"
+},
 
-  const pending = leads.filter(
-    (l) => l.status !== "done"
-  ).length;
+{
+label:"Conversion %",
+value:conversion,
+icon:TrendingUp,
+gradient:"from-green-500 to-green-700"
+}
 
-  const statusData = [
-    { name: "Done", value: done },
-    { name: "Pending", value: pending },
-  ];
+];
 
-  const statusColors = ["#22c55e", "#f59e0b"];
 
-  /* LEADS GROWTH */
+/* SERVICE DATA */
 
-  const dayMap: any = {
-    Mon: 0,
-    Tue: 0,
-    Wed: 0,
-    Thu: 0,
-    Fri: 0,
-    Sat: 0,
-    Sun: 0,
-  };
+const serviceData=[
+{name:"Solar",value:stats.solar},
+{name:"Mandap",value:stats.mandap},
+{name:"Both",value:stats.both}
+];
 
-  leads.forEach((l) => {
+const serviceColors=[
+"#facc15",
+"#ec4899",
+"#8b5cf6"
+];
 
-    if (!l.created_at) return;
 
-    const date = new Date(l.created_at);
+/* CITY DATA */
 
-    const day = date.toLocaleDateString("en-US", {
-      weekday: "short",
-    });
+const cityMap:any={};
 
-    if (dayMap[day] !== undefined) {
+leads.forEach(l=>{
 
-      dayMap[day]++;
+if(!l.city) return;
 
-    }
+if(!cityMap[l.city])
+cityMap[l.city]=0;
 
-  });
+cityMap[l.city]++;
 
-  const leadsGrowth = Object.keys(dayMap).map((day) => ({
-    name: day,
-    leads: dayMap[day],
-  }));
+});
 
-  /* ---------------------------------- */
-  /* EXPORT CSV */
-  /* ---------------------------------- */
+const cityData=Object.keys(cityMap)
+.map(city=>({
 
-  const exportLeads = () => {
+city,
+leads:cityMap[city]
 
-    const csv =
-      "Name,Phone,City,Service\n" +
-      leads
-        .map(
-          (l: any) =>
-            `${l.name},${l.phone},${l.city},${l.service}`
-        )
-        .join("\n");
+}));
 
-    const blob = new Blob([csv], { type: "text/csv" });
 
-    const url = window.URL.createObjectURL(blob);
+/* STATUS */
 
-    const a = document.createElement("a");
+const done=leads.filter(
+l=>l.status==="done"
+).length;
 
-    a.href = url;
+const pending=
+leads.length-done;
 
-    a.download = "leads.csv";
+const statusData=[
 
-    a.click();
-  };
+{name:"Done",value:done},
+{name:"Pending",value:pending}
 
-  return (
+];
 
-    // <AdminLayout>
-    <>
+const statusColors=[
+"#22c55e",
+"#f59e0b"
+];
 
-      {/* HEADER */}
 
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+/* GROWTH */
 
-        <div>
+const dayMap:any={
+Mon:0,Tue:0,Wed:0,
+Thu:0,Fri:0,Sat:0,Sun:0
+};
 
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
+leads.forEach(l=>{
 
-            Dashboard Overview
+if(!l.created_at) return;
 
-          </h1>
+const day=
+new Date(l.created_at)
+.toLocaleDateString(
+"en-US",
+{weekday:"short"}
+);
 
-          <p className="text-gray-500 mt-2">
+if(dayMap[day]!==undefined)
+dayMap[day]++;
 
-            Monitor leads and business performance in real-time
+});
 
-          </p>
+const leadsGrowth=
+Object.keys(dayMap)
+.map(day=>({
 
-        </div>
+name:day,
+leads:dayMap[day]
 
-        <div className="flex gap-2">
+}));
 
-          <button
-            onClick={loadLeads}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg"
-          >
 
-            <RefreshCcw size={16} />
+/* EXPORT */
 
-            Refresh
+const exportLeads=()=>{
 
-          </button>
+const csv=
+"Name,Phone,City,Service\n"+
+leads.map(l=>
+`${l.name},${l.phone},${l.city},${l.service}`
+).join("\n");
 
-          <button
-            onClick={exportLeads}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg"
-          >
+const blob=new Blob([csv]);
 
-            <Download size={16} />
+const url=
+window.URL.createObjectURL(blob);
 
-            Export
+const a=document.createElement("a");
 
-          </button>
+a.href=url;
 
-        </div>
+a.download="leads.csv";
 
-      </div>
+a.click();
 
-      {/* STATS */}
+};
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
 
-        {cards.map((c, index) => (
 
-          <div
-            key={index}
-            className={`p-6 rounded-2xl text-white bg-gradient-to-br ${c.gradient} shadow-xl transition hover:scale-[1.03]`}
-          >
+return(
 
-            <div className="flex justify-between items-center">
+<div className="space-y-8">
 
-              <div>
 
-                <p className="text-sm opacity-80">{c.label}</p>
+{/* HEADER */}
 
-                <h2 className="text-5xl font-bold">
+<div className="flex flex-col md:flex-row md:justify-between gap-4">
 
-                  {loading ? "—" : <CountUp end={c.value} duration={1} />}
+<div>
 
-                </h2>
+<h1 className="text-3xl font-bold">
+Dashboard Overview
+</h1>
 
-              </div>
+<p className="text-gray-500">
+Monitor leads and performance
+</p>
 
-              <div className="bg-white/20 p-4 rounded-xl">
+</div>
 
-                <c.icon className="w-8 h-8 text-white" />
 
-              </div>
+<div className="flex gap-3">
 
-            </div>
+<button
+onClick={loadLeads}
+className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow"
+>
 
-          </div>
+<RefreshCcw size={16}/>
 
-        ))}
+Refresh
 
-      </div>
+</button>
 
-      {/* RECENT LEADS */}
 
-      <Card className="p-6 mb-8 shadow-xl rounded-2xl">
+<button
+onClick={exportLeads}
+className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg shadow"
+>
 
-        <div className="flex justify-between items-center mb-4">
+<Download size={16}/>
 
-          <h2 className="text-xl font-semibold">
+Export
 
-            Recent Leads
+</button>
 
-          </h2>
+</div>
 
-          <span className="text-sm text-gray-400">
+</div>
 
-            Total: {leads.length}
 
-          </span>
 
-        </div>
+{/* STATS */}
 
-        {loading ? (
+<div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
 
-          <div className="flex justify-center py-10">
+{cards.map((c,i)=>(
 
-            <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+<div
+key={i}
+className={`p-6 rounded-2xl text-white bg-gradient-to-br ${c.gradient} shadow-lg transition hover:scale-[1.02]`}
+>
 
-          </div>
+<div className="flex justify-between">
 
-        ) : (
+<div>
 
-          <LeadsTable leads={leads} />
+<p className="opacity-80 text-sm">
+{c.label}
+</p>
 
-        )}
+<h2 className="text-4xl font-bold">
 
-      </Card>
+{loading
+?"—"
+:<CountUp end={c.value}/>}
 
-      {/* CHARTS */}
+</h2>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+</div>
 
-        {/* LEADS GROWTH */}
+<div className="bg-white/20 p-3 rounded-lg">
 
-        <Card className="p-6 shadow-xl rounded-2xl">
+<c.icon/>
 
-          <h2 className="text-lg font-semibold mb-4">
+</div>
 
-            Leads Growth
+</div>
 
-          </h2>
+</div>
 
-          <ResponsiveContainer width="100%" height={300}>
+))}
 
-            <LineChart data={leadsGrowth}>
+</div>
 
-              <XAxis dataKey="name" />
 
-              <YAxis />
 
-              <Tooltip />
+{/* RECENT */}
 
-              <Line
-                type="monotone"
-                dataKey="leads"
-                stroke="#2563eb"
-                strokeWidth={3}
-              />
+<Card className="p-6 shadow">
 
-            </LineChart>
+<h2 className="text-xl font-semibold mb-4">
+Recent Leads
+</h2>
 
-          </ResponsiveContainer>
+{loading?
 
-        </Card>
+<div className="flex justify-center py-12">
 
-        {/* SERVICE DISTRIBUTION */}
+<div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"/>
 
-        <Card className="p-6 shadow-xl rounded-2xl">
+</div>
 
-          <h2 className="text-lg font-semibold mb-4">
+:
 
-            Service Distribution
+leads.length===0?
 
-          </h2>
+<div className="text-center text-gray-400 py-10">
 
-          <ResponsiveContainer width="100%" height={300}>
+No leads yet
 
-            <PieChart>
+</div>
 
-              <Pie
-                data={serviceData}
-                dataKey="value"
-                outerRadius={100}
-                label
-              >
+:
 
-                {serviceData.map((_, index) => (
+<LeadsTable leads={leads}/>
 
-                  <Cell
-                    key={index}
-                    fill={serviceColors[index]}
-                  />
+}
 
-                ))}
+</Card>
 
-              </Pie>
 
-              <Tooltip />
 
-              <Legend />
+{/* CHARTS */}
 
-            </PieChart>
+<div className="grid xl:grid-cols-2 gap-6">
 
-          </ResponsiveContainer>
 
-        </Card>
+<Card className="p-6 shadow">
 
-        {/* LEADS BY CITY */}
+<h2 className="font-semibold mb-4">
+Leads Growth
+</h2>
 
-        <Card className="p-6 shadow-xl rounded-2xl">
+<ResponsiveContainer width="100%" height={280}>
 
-          <h2 className="text-lg font-semibold mb-4">
+<LineChart data={leadsGrowth}>
 
-            Leads by City
+<XAxis dataKey="name"/>
 
-          </h2>
+<YAxis/>
 
-          <ResponsiveContainer width="100%" height={300}>
+<Tooltip/>
 
-            <BarChart data={cityData}>
+<Line
+dataKey="leads"
+stroke="#2563eb"
+strokeWidth={3}
+/>
 
-              <XAxis dataKey="city" />
+</LineChart>
 
-              <YAxis />
+</ResponsiveContainer>
 
-              <Tooltip />
+</Card>
 
-              <Bar
-                dataKey="leads"
-                fill="#6366f1"
-                radius={[6, 6, 0, 0]}
-              />
 
-            </BarChart>
 
-          </ResponsiveContainer>
+<Card className="p-6 shadow">
 
-        </Card>
+<h2 className="font-semibold mb-4">
+Service Distribution
+</h2>
 
-        {/* STATUS */}
+<ResponsiveContainer width="100%" height={280}>
 
-        <Card className="p-6 shadow-xl rounded-2xl">
+<PieChart>
 
-          <h2 className="text-lg font-semibold mb-4">
+<Pie
+data={serviceData}
+dataKey="value"
+outerRadius={90}
+label
+>
 
-            Lead Status
+{serviceData.map((_,i)=>(
+<Cell key={i}
+fill={serviceColors[i]}/>
+))}
 
-          </h2>
+</Pie>
 
-          <ResponsiveContainer width="100%" height={280}>
+<Tooltip/>
 
-            <PieChart>
+<Legend/>
 
-              <Pie
-                data={statusData}
-                dataKey="value"
-                innerRadius={70}
-                outerRadius={100}
-                label
-              >
+</PieChart>
 
-                {statusData.map((_, index) => (
+</ResponsiveContainer>
 
-                  <Cell
-                    key={index}
-                    fill={statusColors[index]}
-                  />
+</Card>
 
-                ))}
 
-              </Pie>
 
-              <Tooltip />
+<Card className="p-6 shadow">
 
-              <Legend />
+<h2 className="font-semibold mb-4">
+Leads by City
+</h2>
 
-            </PieChart>
+<ResponsiveContainer width="100%" height={280}>
 
-          </ResponsiveContainer>
+<BarChart data={cityData}>
 
-        </Card>
+<XAxis dataKey="city"/>
 
-      </div>
+<YAxis/>
 
-    </>
+<Tooltip/>
 
-  );
+<Bar
+dataKey="leads"
+fill="#6366f1"
+radius={[6,6,0,0]}
+/>
+
+</BarChart>
+
+</ResponsiveContainer>
+
+</Card>
+
+
+
+<Card className="p-6 shadow">
+
+<h2 className="font-semibold mb-4">
+Lead Status
+</h2>
+
+<ResponsiveContainer width="100%" height={260}>
+
+<PieChart>
+
+<Pie
+data={statusData}
+dataKey="value"
+innerRadius={60}
+outerRadius={90}
+label
+>
+
+{statusData.map((_,i)=>(
+<Cell key={i}
+fill={statusColors[i]}/>
+))}
+
+</Pie>
+
+<Tooltip/>
+
+<Legend/>
+
+</PieChart>
+
+</ResponsiveContainer>
+
+</Card>
+
+
+</div>
+
+
+</div>
+
+);
+
 };
 
 export default Dashboard;
