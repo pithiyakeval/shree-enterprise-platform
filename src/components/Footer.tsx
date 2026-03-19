@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { MapPin, MessageCircle, Phone, Mail, Sun, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import path from "path";
 
 const Footer = () => {
   return (
@@ -91,6 +92,7 @@ const Footer = () => {
                 { name: "Mandap Services", path: "/mandap-services" },
                 { name: "Help", path: "/help" },
                 { name: "Contact Us", path: "/contact" },
+                { name: "Privacy", path:"/privacy"},
               ].map((link) => (
                 <li key={link.path}>
                   <NavLink

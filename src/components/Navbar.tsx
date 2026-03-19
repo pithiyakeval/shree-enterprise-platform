@@ -266,6 +266,15 @@ Contact
 
 </Link>
 
+<Link
+to="/privacy"
+className={cn(
+"relative px-4 py-2 rounded-lg text-sm font-medium",
+isActive("/privacy") ? "text-blue-600" : "hover:text-blue-600"
+)}>
+    Privacy
+</Link>
+
 </div>
 
 
@@ -360,7 +369,8 @@ Menu
 ["Mandap Services","/mandap-services"],
 ["Mandap Projects","/mandap-projects"],
 ["Help","/help"],
-["Contact","/contact"]
+["Contact","/contact"],
+["Privacy","/privacy"]
 ].map(([name,path])=>(
 
 <Link
