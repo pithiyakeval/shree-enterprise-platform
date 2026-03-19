@@ -54,7 +54,7 @@ const AnalyticsTracker = () => {
     if (!GA_ID || !(window as any).gtag) return;
 
     // Only fire if user has granted analytics consent
-    const stored = localStorage.getItem("cookie_consent_v1");
+    const stored = localStorage.getItem("cookie_consent_v2");
     if (!stored) return;
     try {
       const { prefs } = JSON.parse(stored);

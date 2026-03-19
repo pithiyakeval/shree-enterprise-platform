@@ -132,12 +132,7 @@ createRoot(
 
   <App/>
 
-  <CookieConsent
-   GA_ID={GA_ID}
-   companyName="Shree Enterprise"
-   privacyPolicyUrl="/privacy"
-   cookiePolicyUrl="/cookies"
-  />
+  
 
  </HelmetProvider>
 
