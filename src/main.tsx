@@ -66,16 +66,22 @@ if (GA_ID) {
 
   gtag("js",new Date());
 
+  gtag("config",GA_ID,{
+  anonymize_ip:true,
+  send_page_view:true
+  });
+
   // Restore stored consent
   const stored=getStoredConsent();
 
   if(stored?.prefs?.analytics){
 
     gtag("consent","update",{
-
-      analytics_storage:"granted"
-
+      analytics_storage:"granted",
+      ad_storage:"granted"
     });
+
+    }
 
     gtag("config",GA_ID,{
 
@@ -87,7 +93,7 @@ if (GA_ID) {
 
   }
 
-}
+
 
 /* ================================
    MICROSOFT CLARITY (Behavior analytics)
